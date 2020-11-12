@@ -12,7 +12,7 @@ public abstract class Verweismodul extends Modul {
 	}
 	
 	//TODO: implement
-	public void beantworten(Anfrage anfrage) {
+	public void beantworteAnfrage(Anfrage anfrage) {
 		
 	}
 	
