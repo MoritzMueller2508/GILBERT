@@ -1,4 +1,21 @@
 package de.gilbert.main.modules;
 
-public class MensaModul {
+import de.gilbert.main.Verweismodul;
+
+import java.net.MalformedURLException;
+import java.net.URL;
+
+public class MensaModul extends Verweismodul {
+    private static URL mensaURL;
+    static {
+        try {
+            mensaURL = new URL("https://www.stw-ma.de/speisepl%C3%A4ne.html");
+        }
+        catch(MalformedURLException e) {
+
+        }
+    }
+    public MensaModul() {
+        super(mensaURL, "MensaURL");
+    }
 }
