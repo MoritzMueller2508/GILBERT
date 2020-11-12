@@ -14,6 +14,9 @@ public class Spracherkennung {
 	private List<Modul> module;
 
 
+	/*
+	Auslesen der CSV Datei
+	 */
 	public void csvData(){
 		String csvFile = "Gilbert_Wortschatz.csv";
 		String nextLine;
@@ -23,7 +26,7 @@ public class Spracherkennung {
 		try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
 			br.readLine();
 			while ((nextLine = br.readLine()) != null) {
-				if(nextLine.split(cvsSplitBy).length>=3)
+				if(nextLine.split(cvsSplitBy).length>=2)
 					gilbertData.add(nextLine.split(cvsSplitBy));
 			}
 			for(int gilbertDataRow=0; gilbertDataRow < gilbertData.size(); gilbertDataRow++){
