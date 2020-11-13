@@ -5,7 +5,7 @@ import de.gilbert.main.Verweismodul;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class MensaModul extends Verweismodul {
+public class MensaplanModul extends Verweismodul {
     private static URL mensaURL;
     static {
         try {
@@ -15,7 +15,7 @@ public class MensaModul extends Verweismodul {
 
         }
     }
-    public MensaModul() {
+    public MensaplanModul() {
         super(mensaURL, "MensaURL");
     }
 }
