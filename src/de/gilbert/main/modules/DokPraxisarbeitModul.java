@@ -1,4 +1,4 @@
 package de.gilbert.main.modules;
 
-public class PraxisarbeitModul {
+public class DokPraxisarbeitModul {
 }
