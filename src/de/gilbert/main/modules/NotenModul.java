@@ -5,7 +5,7 @@ import de.gilbert.main.Verweismodul;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class PruefungsModul extends Verweismodul {
+public class NotenModul extends Verweismodul {
     private static URL notenURL;
     static {
         try {
@@ -15,7 +15,7 @@ public class PruefungsModul extends Verweismodul {
 
         }
     }
-    public PruefungsModul() {
+    public NotenModul() {
         super(notenURL, "NotenURL");
     }
 }
