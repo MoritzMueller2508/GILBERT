@@ -10,10 +10,9 @@ public abstract class Verweismodul extends Modul {
 		this.verweis = link;
 		this.platzhalter = platzhalter;
 	}
-	
-	//TODO: implement
+
 	public void beantworteAnfrage(Anfrage anfrage) {
-		
+		anfrage.schreibeVerweis(verweis, platzhalter);
 	}
 	
 	public URL getVerweis() {
