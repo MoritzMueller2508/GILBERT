@@ -1,16 +1,19 @@
 package de.gilbert.main;
 
 import java.net.URL;
+import java.util.HashMap;
 import java.util.Map;
 
 public abstract class Anfrage {
 	private String anfrage;
 	private String[] woerter;
-	private Map<String, Object> paramter;
+	private Map<String, Object> parameter;
 	
 	public Anfrage(String anfrage) {
 		this.anfrage = anfrage;
-		this.woerter = anfrage.split(" ");
+		this.woerter = anfrage.split("\\s+");
+
+		parameter = new HashMap<>();
 	}
 	
 	public abstract void schreibeAntwort(String text);
@@ -31,6 +34,6 @@ public abstract class Anfrage {
 	}
 	
 	public Map<String, Object> getParamter() {
-		return paramter;
+		return parameter;
 	}
 }

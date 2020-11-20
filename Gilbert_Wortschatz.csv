@@ -1,0 +1,132 @@
+﻿phrase;modul;link
+wo;0;
+wie;0;
+was;0;
+woher;0;
+welche;0;
+wer;0;
+wissen;0;
+wann;0;
+an welchem;0;
+welchen;0;
+ab wann;0;
+bis wann;0;
+heute;0;
+morgen;0;
+diese Woche;0;
+gibt es;0;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+moodle;1;https://moodle.dhbw-mannheim.de/login/index.php
+Lernplattform;1;https://moodle.dhbw-mannheim.de/login/index.php
+moodleplattform;1;https://moodle.dhbw-mannheim.de/login/index.php
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+dualis;2;https://dualis.dhbw.de/scripts/mgrqispi.dll?APPNAME=CampusNet&PRGNAME=EXTERNALPAGES&ARGUMENTS=-N000000000000001,-N000324,-Awelcome
+Notenplattform;2;https://dualis.dhbw.de/scripts/mgrqispi.dll?APPNAME=CampusNet&PRGNAME=EXTERNALPAGES&ARGUMENTS=-N000000000000001,-N000324,-Awelcome
+Notenabfrage;2;https://dualis.dhbw.de/scripts/mgrqispi.dll?APPNAME=CampusNet&PRGNAME=EXTERNALPAGES&ARGUMENTS=-N000000000000001,-N000324,-Awelcome
+Note;2;https://dualis.dhbw.de/scripts/mgrqispi.dll?APPNAME=CampusNet&PRGNAME=EXTERNALPAGES&ARGUMENTS=-N000000000000001,-N000324,-Awelcome
+Noten;2;https://dualis.dhbw.de/scripts/mgrqispi.dll?APPNAME=CampusNet&PRGNAME=EXTERNALPAGES&ARGUMENTS=-N000000000000001,-N000324,-Awelcome
+Prüfungsergebnisse;2;https://dualis.dhbw.de/scripts/mgrqispi.dll?APPNAME=CampusNet&PRGNAME=EXTERNALPAGES&ARGUMENTS=-N000000000000001,-N000324,-Awelcome
+;;
+;;
+;;
+;;
+Hilfe;3;
+Chatbot;3;
+Informationen;3;
+GILBERT;3;
+;;
+;;
+;;
+;;
+;;
+;;
+Mensaplan;4;https://www.stw-ma.de/speisepl%C3%A4ne.html
+Kantine;4;https://www.stw-ma.de/speisepl%C3%A4ne.html
+Essen;4;https://www.stw-ma.de/speisepl%C3%A4ne.html
+Menü;4;https://www.stw-ma.de/speisepl%C3%A4ne.html
+Speiseplan;4;https://www.stw-ma.de/speisepl%C3%A4ne.html
+Mensa;4;https://www.stw-ma.de/speisepl%C3%A4ne.html
+Mittagessen;4;https://www.stw-ma.de/speisepl%C3%A4ne.html
+;;
+;;
+;;
+Vorlesungsplan;5;https://vorlesungsplan.dhbw-mannheim.de/
+Stundenplan;5;https://vorlesungsplan.dhbw-mannheim.de/
+Vorlesungen;5;https://vorlesungsplan.dhbw-mannheim.de/
+Unterricht;5;https://vorlesungsplan.dhbw-mannheim.de/
+Vorlesung;5;https://vorlesungsplan.dhbw-mannheim.de/
+Kurse;5;
+Kurs;5;
+Kursplan;5;https://vorlesungsplan.dhbw-mannheim.de/
+;;
+;;
+Prüfungsordnung;6;https://moodle.dhbw-mannheim.de/mod/resource/view.php?id=119941
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+Terminpläne;7;https://www.mannheim.dhbw.de/dual-studieren/bachelor/technik/informatik/angewandte-informatik/studium
+Terminplan;7;https://www.mannheim.dhbw.de/dual-studieren/bachelor/technik/informatik/angewandte-informatik/studium
+Termine;7;https://www.mannheim.dhbw.de/dual-studieren/bachelor/technik/informatik/angewandte-informatik/studium
+Fristen;7;https://www.mannheim.dhbw.de/dual-studieren/bachelor/technik/informatik/angewandte-informatik/studium
+Deadlines;7;https://www.mannheim.dhbw.de/dual-studieren/bachelor/technik/informatik/angewandte-informatik/studium
+Abgabefristen;7;https://www.mannheim.dhbw.de/dual-studieren/bachelor/technik/informatik/angewandte-informatik/studium
+abgeben;7;https://www.mannheim.dhbw.de/dual-studieren/bachelor/technik/informatik/angewandte-informatik/studium
+;;
+;;
+;;
+Modulhandbuch;8;https://www.mannheim.dhbw.de/dual-studieren/bachelor/technik/informatik/angewandte-informatik/studium
+Modulbeschreibungen;8;https://www.mannheim.dhbw.de/dual-studieren/bachelor/technik/informatik/angewandte-informatik/studium
+Module;8;https://www.mannheim.dhbw.de/dual-studieren/bachelor/technik/informatik/angewandte-informatik/studium
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+Praxisarbeit;9;generelle Dokumentensuche: https://www.mannheim.dhbw.de/service/dokumente, Unterschriftenregelung: https://www.mannheim.dhbw.de/fileadmin/user_upload/Studienangebot/Technik/__Downloads/Unterschriftenregelung-FAKT-DHBW-MA-201810.pdf, Leitlinien: https://www.mannheim.dhbw.de/fileadmin/user_upload/Studienangebot/Technik/__Downloads/Leitlinien-fuer-Bearbeitung-und-Dokumentation-FKT-DHBW-201909.pdf, Bewertung: https://www.mannheim.dhbw.de/fileadmin/user_upload/Studienangebot/Technik/__Downloads/Projekt-Studien-und-Bachelorarbeit-Bewertung-FKT-DHBW-201712.pdf, Bewertung: https://www.mannheim.dhbw.de/fileadmin/user_upload/Studienangebot/Technik/__Downloads/Bewertung_Schematisch-Projektarbeit-Studienarbeit-Bachelorarbeit-FKT-DHBW-S-200202.xlsx, 
+Praxisarbeiten;9;generelle Dokumentensuche: https://www.mannheim.dhbw.de/service/dokumente, Unterschriftenregelung: https://www.mannheim.dhbw.de/fileadmin/user_upload/Studienangebot/Technik/__Downloads/Unterschriftenregelung-FAKT-DHBW-MA-201810.pdf, Leitlinien: https://www.mannheim.dhbw.de/fileadmin/user_upload/Studienangebot/Technik/__Downloads/Leitlinien-fuer-Bearbeitung-und-Dokumentation-FKT-DHBW-201909.pdf, Bewertung: https://www.mannheim.dhbw.de/fileadmin/user_upload/Studienangebot/Technik/__Downloads/Projekt-Studien-und-Bachelorarbeit-Bewertung-FKT-DHBW-201712.pdf, Bewertung: https://www.mannheim.dhbw.de/fileadmin/user_upload/Studienangebot/Technik/__Downloads/Bewertung_Schematisch-Projektarbeit-Studienarbeit-Bachelorarbeit-FKT-DHBW-S-200202.xlsx, 
+Dokumente;9;generelle Dokumentensuche: https://www.mannheim.dhbw.de/service/dokumente, Unterschriftenregelung: https://www.mannheim.dhbw.de/fileadmin/user_upload/Studienangebot/Technik/__Downloads/Unterschriftenregelung-FAKT-DHBW-MA-201810.pdf, Leitlinien: https://www.mannheim.dhbw.de/fileadmin/user_upload/Studienangebot/Technik/__Downloads/Leitlinien-fuer-Bearbeitung-und-Dokumentation-FKT-DHBW-201909.pdf, Bewertung: https://www.mannheim.dhbw.de/fileadmin/user_upload/Studienangebot/Technik/__Downloads/Projekt-Studien-und-Bachelorarbeit-Bewertung-FKT-DHBW-201712.pdf, Bewertung: https://www.mannheim.dhbw.de/fileadmin/user_upload/Studienangebot/Technik/__Downloads/Bewertung_Schematisch-Projektarbeit-Studienarbeit-Bachelorarbeit-FKT-DHBW-S-200202.xlsx, 
+Informationen;9;generelle Dokumentensuche: https://www.mannheim.dhbw.de/service/dokumente, Unterschriftenregelung: https://www.mannheim.dhbw.de/fileadmin/user_upload/Studienangebot/Technik/__Downloads/Unterschriftenregelung-FAKT-DHBW-MA-201810.pdf, Leitlinien: https://www.mannheim.dhbw.de/fileadmin/user_upload/Studienangebot/Technik/__Downloads/Leitlinien-fuer-Bearbeitung-und-Dokumentation-FKT-DHBW-201909.pdf, Bewertung: https://www.mannheim.dhbw.de/fileadmin/user_upload/Studienangebot/Technik/__Downloads/Projekt-Studien-und-Bachelorarbeit-Bewertung-FKT-DHBW-201712.pdf, Bewertung: https://www.mannheim.dhbw.de/fileadmin/user_upload/Studienangebot/Technik/__Downloads/Bewertung_Schematisch-Projektarbeit-Studienarbeit-Bachelorarbeit-FKT-DHBW-S-200202.xlsx, 
+Information;9;generelle Dokumentensuche: https://www.mannheim.dhbw.de/service/dokumente, Unterschriftenregelung: https://www.mannheim.dhbw.de/fileadmin/user_upload/Studienangebot/Technik/__Downloads/Unterschriftenregelung-FAKT-DHBW-MA-201810.pdf, Leitlinien: https://www.mannheim.dhbw.de/fileadmin/user_upload/Studienangebot/Technik/__Downloads/Leitlinien-fuer-Bearbeitung-und-Dokumentation-FKT-DHBW-201909.pdf, Bewertung: https://www.mannheim.dhbw.de/fileadmin/user_upload/Studienangebot/Technik/__Downloads/Projekt-Studien-und-Bachelorarbeit-Bewertung-FKT-DHBW-201712.pdf, Bewertung: https://www.mannheim.dhbw.de/fileadmin/user_upload/Studienangebot/Technik/__Downloads/Bewertung_Schematisch-Projektarbeit-Studienarbeit-Bachelorarbeit-FKT-DHBW-S-200202.xlsx, 
+Leitlinien;9;generelle Dokumentensuche: https://www.mannheim.dhbw.de/service/dokumente, Unterschriftenregelung: https://www.mannheim.dhbw.de/fileadmin/user_upload/Studienangebot/Technik/__Downloads/Unterschriftenregelung-FAKT-DHBW-MA-201810.pdf, Leitlinien: https://www.mannheim.dhbw.de/fileadmin/user_upload/Studienangebot/Technik/__Downloads/Leitlinien-fuer-Bearbeitung-und-Dokumentation-FKT-DHBW-201909.pdf, Bewertung: https://www.mannheim.dhbw.de/fileadmin/user_upload/Studienangebot/Technik/__Downloads/Projekt-Studien-und-Bachelorarbeit-Bewertung-FKT-DHBW-201712.pdf, Bewertung: https://www.mannheim.dhbw.de/fileadmin/user_upload/Studienangebot/Technik/__Downloads/Bewertung_Schematisch-Projektarbeit-Studienarbeit-Bachelorarbeit-FKT-DHBW-S-200202.xlsx, 
+Bewertung;9;generelle Dokumentensuche: https://www.mannheim.dhbw.de/service/dokumente, Unterschriftenregelung: https://www.mannheim.dhbw.de/fileadmin/user_upload/Studienangebot/Technik/__Downloads/Unterschriftenregelung-FAKT-DHBW-MA-201810.pdf, Leitlinien: https://www.mannheim.dhbw.de/fileadmin/user_upload/Studienangebot/Technik/__Downloads/Leitlinien-fuer-Bearbeitung-und-Dokumentation-FKT-DHBW-201909.pdf, Bewertung: https://www.mannheim.dhbw.de/fileadmin/user_upload/Studienangebot/Technik/__Downloads/Projekt-Studien-und-Bachelorarbeit-Bewertung-FKT-DHBW-201712.pdf, Bewertung: https://www.mannheim.dhbw.de/fileadmin/user_upload/Studienangebot/Technik/__Downloads/Bewertung_Schematisch-Projektarbeit-Studienarbeit-Bachelorarbeit-FKT-DHBW-S-200202.xlsx, 
+Bewertungsschema;9;generelle Dokumentensuche: https://www.mannheim.dhbw.de/service/dokumente, Unterschriftenregelung: https://www.mannheim.dhbw.de/fileadmin/user_upload/Studienangebot/Technik/__Downloads/Unterschriftenregelung-FAKT-DHBW-MA-201810.pdf, Leitlinien: https://www.mannheim.dhbw.de/fileadmin/user_upload/Studienangebot/Technik/__Downloads/Leitlinien-fuer-Bearbeitung-und-Dokumentation-FKT-DHBW-201909.pdf, Bewertung: https://www.mannheim.dhbw.de/fileadmin/user_upload/Studienangebot/Technik/__Downloads/Projekt-Studien-und-Bachelorarbeit-Bewertung-FKT-DHBW-201712.pdf, Bewertung: https://www.mannheim.dhbw.de/fileadmin/user_upload/Studienangebot/Technik/__Downloads/Bewertung_Schematisch-Projektarbeit-Studienarbeit-Bachelorarbeit-FKT-DHBW-S-200202.xlsx, 
+Unterschriften;9;generelle Dokumentensuche: https://www.mannheim.dhbw.de/service/dokumente, Unterschriftenregelung: https://www.mannheim.dhbw.de/fileadmin/user_upload/Studienangebot/Technik/__Downloads/Unterschriftenregelung-FAKT-DHBW-MA-201810.pdf, Leitlinien: https://www.mannheim.dhbw.de/fileadmin/user_upload/Studienangebot/Technik/__Downloads/Leitlinien-fuer-Bearbeitung-und-Dokumentation-FKT-DHBW-201909.pdf, Bewertung: https://www.mannheim.dhbw.de/fileadmin/user_upload/Studienangebot/Technik/__Downloads/Projekt-Studien-und-Bachelorarbeit-Bewertung-FKT-DHBW-201712.pdf, Bewertung: https://www.mannheim.dhbw.de/fileadmin/user_upload/Studienangebot/Technik/__Downloads/Bewertung_Schematisch-Projektarbeit-Studienarbeit-Bachelorarbeit-FKT-DHBW-S-200202.xlsx, 
+;;
+Allgemeines FAQ;10;Abfrage ob weiter im Chatbot oder zum Dokument
+FAQ;10;
+andere Fragen;10;
+etwas anderes;10;
+;;
+;;
+;;
+;;
+;;
+;;
+Sekretät*innen-Informationen?;;

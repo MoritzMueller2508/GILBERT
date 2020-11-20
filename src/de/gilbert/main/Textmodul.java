@@ -6,10 +6,9 @@ public abstract class Textmodul extends Modul{
 	public Textmodul(String text) {
 		this.text = text;
 	}
-	
-	//TODO: implement
-	public void beantworten(Anfrage anfrage) {
-		
+
+	public void beantworteAnfrage(Anfrage anfrage) {
+		anfrage.schreibeAntwort(text);
 	}
 	
 	public String getText() {
