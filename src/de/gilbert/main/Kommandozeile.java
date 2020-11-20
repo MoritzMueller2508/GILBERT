@@ -11,10 +11,12 @@ public class Kommandozeile extends Benutzerschnittstelle {
 		Scanner scanner = new Scanner(System.in);
 		while(true) {
 			String userInput = scanner.nextLine();
+			Kommandozeilenanfrage kommandozeilenanfrage = new Kommandozeilenanfrage(userInput);
+			spracherkennung.bearbeiteAnfrage(kommandozeilenanfrage);
 		if(userInput.equals("exit")){
 			System.exit(0);
 		}
-		Kommandozeilenanfrage kommandozeilenanfrage = new Kommandozeilenanfrage(userInput);
+
 
 		System.out.println("Hast du noch weitere Fragen?");
 		}
