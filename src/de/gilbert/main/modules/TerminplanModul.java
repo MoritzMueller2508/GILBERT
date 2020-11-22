@@ -1,4 +1,23 @@
 package de.gilbert.main.modules;
 
-public class TerminplanModul {
+import de.gilbert.main.Verweismodul;
+
+import java.net.MalformedURLException;
+import java.net.URL;
+
+public class TerminplanModul extends Verweismodul {
+    private static URL Terminplan_URL;
+
+    static{
+        try {
+            Terminplan_URL = new URL("https://vorlesungsplan.dhbw-mannheim.de/index.php");
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public TerminplanModul(URL link, String platzhalter) {
+        super(link, platzhalter);
+    }
 }
