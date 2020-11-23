@@ -1,5 +1,6 @@
 package de.gilbert.main;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Kommandozeile extends Benutzerschnittstelle {
@@ -7,7 +8,11 @@ public class Kommandozeile extends Benutzerschnittstelle {
 	//TODO: Implement 
 	public void beginneLoop() {
 		Spracherkennung spracherkennung = new Spracherkennung();
-		spracherkennung.csvData();
+		try {
+			spracherkennung.csvData();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		Scanner scanner = new Scanner(System.in);
 		while(true) {
 			String userInput = scanner.nextLine();
