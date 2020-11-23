@@ -6,5 +6,4 @@ public class Datumserkennung extends Erkennungsmodul{
 	@Override
 	public void untersucheAnfrage(Anfrage anfrage) {
 	}
-
 }
