@@ -22,6 +22,8 @@ public abstract class Anfrage {
 	
 	public abstract Object frageAuswahl(String frage, Map<String, Object> auswahl);
 	
+	public abstract Object frageWert(String frage);
+	
 	public abstract boolean frageBestaetigung(String frage);
 	
 	

@@ -2,6 +2,7 @@ package de.gilbert.main;
 
 import java.net.URL;
 import java.util.Map;
+import java.util.Scanner;
 
 public class Kommandozeilenanfrage extends Anfrage {
 	
@@ -24,6 +25,14 @@ public class Kommandozeilenanfrage extends Anfrage {
 	@Override
 	public Object frageAuswahl(String frage, Map<String, Object> auswahl) {
 		return null;
+	}
+	
+	public Object frageWert(String frage) {
+		System.out.println(frage);
+		Scanner scanner = new Scanner(System.in); 
+		String antwort = scanner.nextLine();
+		scanner.close();
+		return antwort;
 	}
 
 	//TODO: implement

@@ -26,7 +26,7 @@ public class Spracherkennung {
 	/**
 	 * Liest die Daten aus der CSV Datei aus und speichert sie als ArrayList
 	 */
-	public ArrayList<String[]> csvData() throws IOException{
+	public  ArrayList<String[]> csvData() throws IOException{
 		String csvFile = "Gilbert_Wortschatz.csv";
 		String nextLine;
 		String cvsSplitBy = ";";
