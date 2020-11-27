@@ -120,7 +120,7 @@ public class VorlesungsplanModul extends Verweismodul {
 	 * @throws IOException, sollte keine Datei mit dem angegebenen Namen exisitieren.
 	 */
 	private Map<String, String> csvData() throws IOException {
-		String csvFile = "Gilbert_Wortschatz.csv";
+		String csvFile = "Kurszuweisungen.csv";
 		String nextLine;
 		String cvsSplitBy = ";";
 		Map<String, String> kursdaten = new HashMap<>();
