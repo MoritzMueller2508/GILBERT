@@ -17,11 +17,13 @@ public class Kommandozeile extends Benutzerschnittstelle {
 		}
 
 		Scanner scanner = new Scanner(System.in);
+		System.out.println("Hallo! Ich bin GILBERT und bin da, um dir zu helfen.\n" +
+				           "Hast du eine Frage?");
 		while(true) {
 			String userInput = scanner.nextLine();
+			if (userInput.equalsIgnoreCase("exit") || userInput.equalsIgnoreCase("nein")) System.exit(0);
 			Kommandozeilenanfrage kommandozeilenanfrage = new Kommandozeilenanfrage(scanner, userInput);
 			spracherkennung.bearbeiteAnfrage(kommandozeilenanfrage);
-			if(userInput.equals("exit")) System.exit(0);
 			System.out.println("Hast du noch weitere Fragen?");
 		}
 

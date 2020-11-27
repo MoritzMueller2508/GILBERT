@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,7 +33,7 @@ public class VorlesungsplanModul extends Verweismodul {
 		Map<String, String> kursdaten;
 		try {
 			kursdaten = csvData();
-			String kursbezeichnung = null;
+			String kursbezeichnung;
 
 			// Keine Datumsangabe in Anfrage
 			if (!anfrage.getParameter().containsKey("datumsangabe")) {
@@ -99,15 +100,14 @@ public class VorlesungsplanModul extends Verweismodul {
 	 * @return die generierte Url oder null, sollte beim parsen ein Fehler auftreten
 	 */
 	private URL generiereNeueUrl(String kurs, Anfrage anfrage) {
-		String neueUrl = VORLESUNGSPLAN_URL.getHost();
-		neueUrl += "/index.php?action=view&gid=3067001&uid=" + kurs;
+		String neueUrl = "/index.php?action=view&gid=3067001&uid=" + kurs;
 		
 		if(anfrage.getParameter().containsKey("datumsangabe")) {
-			neueUrl += "&date=" + (Long) anfrage.getParameter().get("datumsangabe") / 1000;
+			neueUrl += "&date=" + ((Date) anfrage.getParameter().get("datumsangabe")).getTime() / 1000;
 		}
 
 		try {
-			return new URL(neueUrl);
+			return new URL(VORLESUNGSPLAN_URL, neueUrl);
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 			return null;
