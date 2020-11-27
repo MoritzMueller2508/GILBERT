@@ -15,7 +15,7 @@ public class MoodleModul extends Verweismodul {
             e.printStackTrace();
         }
     }
-    public MoodleModul() {
-        super(MOODLE_URL, "MoodleURL");
+    public MoodleModul(String[] schluessel) {
+        super(schluessel, MOODLE_URL, "MoodleURL");
     }
 }

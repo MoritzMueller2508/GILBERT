@@ -15,7 +15,7 @@ public class NotenModul extends Verweismodul {
             e.printStackTrace();
         }
     }
-    public NotenModul() {
-        super(NOTEN_URL, "Dualis");
+    public NotenModul(String[] schluessel) {
+        super(schluessel, NOTEN_URL, "Dualis");
     }
 }

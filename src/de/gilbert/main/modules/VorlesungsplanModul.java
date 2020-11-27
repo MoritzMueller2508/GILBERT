@@ -22,8 +22,8 @@ public class VorlesungsplanModul extends Verweismodul {
 		}
 	}
 
-	public VorlesungsplanModul() {
-		super(VORLESUNGSPLAN_URL, "VorlesungsplanURL");
+	public VorlesungsplanModul(String[] schluessel) {
+		super(schluessel, VORLESUNGSPLAN_URL, "VorlesungsplanURL");
 
 	}
 

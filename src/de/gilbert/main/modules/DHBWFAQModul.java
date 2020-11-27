@@ -16,7 +16,7 @@ public class DHBWFAQModul extends Verweismodul {
         }
     }
 
-    public DHBWFAQModul() {
-        super(FAQ_URL, "FAQ der DHBW");
+    public DHBWFAQModul(String[] schluessel) {
+        super(schluessel, FAQ_URL, "FAQ der DHBW");
     }
 }

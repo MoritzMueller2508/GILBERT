@@ -6,7 +6,8 @@ public abstract class Verweismodul extends Modul {
 	private URL verweis;
 	private String platzhalter;
 	
-	public Verweismodul(URL link, String platzhalter) {
+	public Verweismodul(String[] schluessel, URL link, String platzhalter) {
+		super(schluessel);
 		this.verweis = link;
 		this.platzhalter = platzhalter;
 	}

@@ -16,7 +16,7 @@ public class DokPraxisarbeitModul extends Verweismodul {
         }
     }
 
-    public DokPraxisarbeitModul() {
-        super(PRAXISARBEITSURL, "Praxisarbeit");
+    public DokPraxisarbeitModul(String[] schluessel) {
+        super(schluessel, PRAXISARBEITSURL, "Praxisarbeit");
     }
 }

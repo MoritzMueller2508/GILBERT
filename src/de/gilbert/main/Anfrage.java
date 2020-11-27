@@ -11,7 +11,10 @@ public abstract class Anfrage {
 	
 	public Anfrage(String anfrage) {
 		this.anfrage = anfrage;
-		this.woerter = anfrage.split("\\s+");
+		this.woerter = anfrage
+				.toLowerCase()
+				.replaceAll("\\p{Punct}", " ")
+				.split("\\s+");
 		parameter = new HashMap<>();
 	}
 	
@@ -19,7 +22,7 @@ public abstract class Anfrage {
 	
 	public abstract void schreibeVerweis(URL link, String platzhalter);
 	
-	public abstract Object frageAuswahl(String frage, Map<String, Object> auswahl);
+	public abstract <T> T frageAuswahl(String frage, Map<String, T> auswahl);
 	
 	public abstract Object frageWert(String frage);
 	

@@ -17,7 +17,7 @@ public class PruefOrdnungModul extends Verweismodul {
     }
 
 
-    public PruefOrdnungModul() {
-        super(PRUEFORDNUNG_URL, "Prüfungsordnung");
+    public PruefOrdnungModul(String[] schluessel) {
+        super(schluessel, PRUEFORDNUNG_URL, "Prüfungsordnung");
     }
 }

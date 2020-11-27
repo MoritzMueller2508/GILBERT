@@ -23,8 +23,8 @@ public class GILBERTHilfeModul extends Textmodul {
             "- Was gibt es heute zu essen?\n" +
             "- Wie ist die Praxisarbeit Bewertung?";
 
-    public GILBERTHilfeModul() {
-        super(ANLEITUNG);
+    public GILBERTHilfeModul(String[] schluessel) {
+        super(schluessel, ANLEITUNG);
     }
 
 

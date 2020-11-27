@@ -15,7 +15,7 @@ public class MensaplanModul extends Verweismodul {
             e.printStackTrace();
         }
     }
-    public MensaplanModul() {
-        super(MENSAURL, "Mensa");
+    public MensaplanModul(String[] schluessel) {
+        super(schluessel, MENSAURL, "Mensa");
     }
 }

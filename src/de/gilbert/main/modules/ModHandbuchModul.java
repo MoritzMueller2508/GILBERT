@@ -17,7 +17,7 @@ public class ModHandbuchModul extends Verweismodul {
     }
 
 
-    public ModHandbuchModul() {
-        super(MODHANDBUCH_URL,"Modulhandbuch");
+    public ModHandbuchModul(String[] schluessel) {
+        super(schluessel, MODHANDBUCH_URL,"Modulhandbuch");
     }
 }

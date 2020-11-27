@@ -5,11 +5,7 @@ import de.gilbert.main.modules.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class Spracherkennung {
 	
@@ -20,9 +16,9 @@ public class Spracherkennung {
 	 * Wird verwendet, wenn kein anderes Modul ausgewählt werden kann, da kein Modul
 	 * mehr passende Schlüsselwörter hat, als ein anderes.
 	 */
-	private final Modul fallbackModul = new Textmodul("Ich konnte die Frage leider nicht verstehen.") {	};
+	private final Modul fallbackModul = new Textmodul(new String[0], "Ich konnte die Frage leider nicht verstehen.") {	};
 
-	public Spracherkennung() {
+	public Spracherkennung() throws IOException {
 		// TODO: implement
 		importiereModul();
 	}
@@ -30,35 +26,63 @@ public class Spracherkennung {
 	/**
 	 * Liest die Daten aus der CSV Datei aus und speichert sie als ArrayList
 	 */
-	public  ArrayList<String[]> csvData() throws IOException{
+	public  ArrayList<String[]> csvData() throws IOException {
 		String csvFile = "Gilbert_Wortschatz.csv";
 		String nextLine;
 		String cvsSplitBy = ";";
 		ArrayList<String[]> gilbertData = new ArrayList<>();
 
 		try (BufferedReader bufferedReader = new BufferedReader(new FileReader(csvFile))) {
-			bufferedReader.readLine();
+			bufferedReader.readLine(); // ignore title line
 			while ((nextLine = bufferedReader.readLine()) != null) {
-				if(nextLine.split(cvsSplitBy).length>=2)
-					gilbertData.add(nextLine.split(cvsSplitBy));
+				String[] split = nextLine.split(cvsSplitBy);
+				//
+				if(split.length >= 2) gilbertData.add(split);
 			}
+
 			return gilbertData;
 		}
 	}
 
-	public void importiereModul(){
+	/**
+	 * Läd die CSV Datei und ordnet die Daten den Modulen zu
+	 */
+	public Map<Integer, String[]> ladeSchluessel() throws IOException {
+		ArrayList<String[]> csvData = csvData();
+		Map<Integer, List<String>> schluessel = new HashMap<>();
+
+		for (String[] data: csvData) {
+			try {
+				int modulID = Integer.parseInt(data[1]);
+				schluessel.computeIfAbsent(modulID, i -> new ArrayList<>()).add(data[0]);
+			} catch (NumberFormatException ignored) {}
+		}
+
+		Map<Integer, String[]> schluesselArrayMap = new HashMap<>();
+		schluessel.forEach((i, s) -> schluesselArrayMap.put(i, s.toArray(new String[0])));
+		return schluesselArrayMap;
+	}
+
+	private String[] getOrDefault(Map<Integer, String[]> schluessel, int modulId) {
+		return Objects.requireNonNullElseGet(schluessel.get(modulId), () -> new String[0]);
+	}
+
+	public void importiereModul() throws IOException {
 		module = new ArrayList<>();
 		erkennungsmodule = new ArrayList<>();
-		module.add(new DHBWFAQModul());
-		module.add(new DokPraxisarbeitModul());
-		module.add(new GILBERTHilfeModul());
-		module.add(new MensaplanModul());
-		module.add(new ModHandbuchModul());
-		module.add(new MoodleModul());
-		module.add(new NotenModul());
-		module.add(new PruefOrdnungModul());
-		module.add(new TerminplanModul());
-		module.add(new VorlesungsplanModul());
+
+		Map<Integer, String[]> schluessel = ladeSchluessel();
+		module.add(new MoodleModul(getOrDefault(schluessel, 1)));          // Modul 1
+		module.add(new NotenModul(getOrDefault(schluessel, 2)));           // Modul 2
+		module.add(new GILBERTHilfeModul(getOrDefault(schluessel, 3)));    // Modul 3
+		module.add(new MensaplanModul(getOrDefault(schluessel, 4)));       // Modul 4
+		module.add(new VorlesungsplanModul(getOrDefault(schluessel, 5)));  // Modul 5
+		module.add(new PruefOrdnungModul(getOrDefault(schluessel, 6)));    // Modul 6
+		module.add(new TerminplanModul(getOrDefault(schluessel, 7)));      // Modul 7
+		module.add(new ModHandbuchModul(getOrDefault(schluessel, 8)));     // Modul 8
+		module.add(new DokPraxisarbeitModul(getOrDefault(schluessel, 9))); // Modul 9
+		module.add(new DHBWFAQModul(getOrDefault(schluessel, 10)));        // Modul 10
+
 		erkennungsmodule.add(new Frageerkennung());
 		erkennungsmodule.add(new Datumserkennung());
 	}
@@ -91,12 +115,12 @@ public class Spracherkennung {
 		for (int modulIndex = 0; modulIndex < module.size(); modulIndex++) {
 			Modul modul = module.get(modulIndex);
 
-			// nacheinander werden jetzt alle Schluessel des a#ktuellen Moduls untersucht
+			// nacheinander werden jetzt alle Schluessel des aktuellen Moduls untersucht
 			String[] modulSchluessel = modul.getSchluessel();
 			for (String schluessel : modulSchluessel) {
 				// Ein Schluessel kann aus mehreren Woertern bestehen, die durch Whitespace getrennt sind
 				// Die Wörter werden getrennt, um einfacher mit der Anfrage verglichen zu werden
-				String[] split = schluessel.split("\\s+");
+				String[] split = schluessel.toLowerCase().split("\\s+");
 
 				int anzahlWoerter = 0; // die Anzahl der Wörter des Schluessel, die schon gefunden wurden
 				for (String wort : woerter) {

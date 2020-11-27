@@ -7,21 +7,22 @@ public class Kommandozeile extends Benutzerschnittstelle {
 	
 	//TODO: Implement 
 	public void beginneLoop() {
-		Spracherkennung spracherkennung = new Spracherkennung();
+		Spracherkennung spracherkennung;
 		try {
-			spracherkennung.csvData();
+			spracherkennung = new Spracherkennung();
 		} catch (IOException e) {
+			System.out.println("Fehler beim initialisieren");
 			e.printStackTrace();
+			return;
 		}
+
 		Scanner scanner = new Scanner(System.in);
 		while(true) {
 			String userInput = scanner.nextLine();
-			Kommandozeilenanfrage kommandozeilenanfrage = new Kommandozeilenanfrage(userInput);
+			Kommandozeilenanfrage kommandozeilenanfrage = new Kommandozeilenanfrage(scanner, userInput);
 			spracherkennung.bearbeiteAnfrage(kommandozeilenanfrage);
-		if(userInput.equals("exit")){
-			System.exit(0);
-		}
-		System.out.println("Hast du noch weitere Fragen?");
+			if(userInput.equals("exit")) System.exit(0);
+			System.out.println("Hast du noch weitere Fragen?");
 		}
 
 	}

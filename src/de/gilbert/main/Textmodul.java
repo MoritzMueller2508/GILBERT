@@ -3,7 +3,8 @@ package de.gilbert.main;
 public abstract class Textmodul extends Modul{
 	private String text;
 	
-	public Textmodul(String text) {
+	public Textmodul(String[] schluessel, String text) {
+		super(schluessel);
 		this.text = text;
 	}
 

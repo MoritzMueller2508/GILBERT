@@ -6,9 +6,11 @@ import java.util.Scanner;
 
 public class Kommandozeilenanfrage extends Anfrage {
 	
+	private Scanner scanner;
 
-	public Kommandozeilenanfrage(String anfrage) {
+	public Kommandozeilenanfrage(Scanner sc, String anfrage) {
 		super(anfrage);
+		this.scanner = sc;
 	}
 	
 
@@ -26,35 +28,32 @@ public class Kommandozeilenanfrage extends Anfrage {
 
 	//TODO überarbeiten vielleicht
 	@Override
-	public Object frageAuswahl(String frage, Map<String, Object> auswahl) {
+	public <T> T frageAuswahl(String frage, Map<String, T> auswahl) {
 		System.out.println(frage);
 
-		for(String keyElement : auswahl.keySet()){
+		for(String keyElement : auswahl.keySet()) {
 			System.out.println(keyElement);
 		}
-		Scanner scanner = new Scanner(System.in);
 		String antwort = scanner.nextLine();
-
-		scanner.close();
-		return antwort;
+		return auswahl.get(antwort);
 	}
 	
 	public Object frageWert(String frage) {
 		System.out.println(frage);
-		Scanner scanner = new Scanner(System.in); 
 		String antwort = scanner.nextLine();
-		scanner.close();
 		return antwort;
 	}
 
 
 	@Override
 	public boolean frageBestaetigung(String frage) {
+		System.out.println(frage);
+		String antwort = scanner.nextLine();
 
-		if(frage.toUpperCase().startsWith("J")){
+		if(antwort.toUpperCase().startsWith("J")){
 			return true;
 		}
-		else if(frage.toUpperCase().startsWith("N")) {
+		else if(antwort.toUpperCase().startsWith("N")) {
 			return false;
 		}
 		//Falls nichts zutrifft
