@@ -6,27 +6,36 @@ import java.util.Scanner;
 
 public class Kommandozeilenanfrage extends Anfrage {
 	
-	//TODO: implement
+
 	public Kommandozeilenanfrage(String anfrage) {
 		super(anfrage);
 	}
 	
-	//TODO: implement
+
 	@Override
 	public void schreibeAntwort(String text) {
-
+		System.out.println(text);
 	}
 	
-	//TODO: implement
+
 	@Override
 	public void schreibeVerweis(URL link, String platzhalter) {
-
+		System.out.println(platzhalter+": "+ link);
 	}
-	
-	//TODO: implement
+
+
+	//TODO überarbeiten vielleicht
 	@Override
 	public Object frageAuswahl(String frage, Map<String, Object> auswahl) {
-		return null;
+		System.out.println(frage);
+		for(String keyElement : auswahl.keySet()){
+			System.out.println(keyElement);
+		}
+		Scanner scanner = new Scanner(System.in);
+		String antwort = scanner.nextLine();
+
+		scanner.close();
+		return antwort;
 	}
 	
 	public Object frageWert(String frage) {
@@ -37,10 +46,20 @@ public class Kommandozeilenanfrage extends Anfrage {
 		return antwort;
 	}
 
-	//TODO: implement
+
 	@Override
 	public boolean frageBestaetigung(String frage) {
-		return false;
+
+		if(frage.toUpperCase().startsWith("J")){
+			return true;
+		}
+		else if(frage.toUpperCase().startsWith("N")) {
+			return false;
+		}
+		//Falls nichts zutrifft
+		else {
+			return false;
+		}
 	}
 
 }

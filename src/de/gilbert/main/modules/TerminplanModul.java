@@ -6,11 +6,11 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 public class TerminplanModul extends Verweismodul {
-    private static URL Terminplan_URL;
+    private static URL TERMINPLAN_URL;
 
     static{
         try {
-            Terminplan_URL = new URL("https://vorlesungsplan.dhbw-mannheim.de/index.php");
+            TERMINPLAN_URL = new URL("https://vorlesungsplan.dhbw-mannheim.de/index.php");
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
@@ -18,6 +18,6 @@ public class TerminplanModul extends Verweismodul {
 
 
     public TerminplanModul() {
-        super(Terminplan_URL, "Terminplan");
+        super(TERMINPLAN_URL, "Terminplan");
     }
 }

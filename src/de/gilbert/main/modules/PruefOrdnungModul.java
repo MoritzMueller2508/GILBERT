@@ -6,11 +6,11 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 public class PruefOrdnungModul extends Verweismodul {
-    private static URL PruefOrdnung_URL;
+    private static URL PRUEFORDNUNG_URL;
 
     static {
         try {
-            PruefOrdnung_URL = new URL("https://www.mannheim.dhbw.de/fileadmin/user_upload/Studienangebot/Technik/__Downloads/Pruefungsordnung-2020-Fakultaet-Technik-Praesidium-DHBW-S-200727_Nr._14.pdf");
+            PRUEFORDNUNG_URL = new URL("https://www.mannheim.dhbw.de/fileadmin/user_upload/Studienangebot/Technik/__Downloads/Pruefungsordnung-2020-Fakultaet-Technik-Praesidium-DHBW-S-200727_Nr._14.pdf");
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
@@ -18,6 +18,6 @@ public class PruefOrdnungModul extends Verweismodul {
 
 
     public PruefOrdnungModul() {
-        super(PruefOrdnung_URL, "Prüfungsordnung");
+        super(PRUEFORDNUNG_URL, "Prüfungsordnung");
     }
 }

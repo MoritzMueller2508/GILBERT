@@ -5,7 +5,7 @@ import de.gilbert.main.Textmodul;
 import de.gilbert.main.Verweismodul;
 
 public class GILBERTHilfeModul extends Textmodul {
-    private static String Anleitung = "Hallo, ich bin GILBERT.\n" +
+    private static String ANLEITUNG = "Hallo, ich bin GILBERT.\n" +
             "Ich bin hier um dir mit deiner Anfrage bezüglich der DHBW Mannheim zu helfen.\n" +
             "Du findest nicht irgendwelche Information oder einen wichtigen Link? Keine Sorge, ich bin hier.\n" +
             "Ich besitze Informationen über folgende Themen:\n" +
@@ -24,12 +24,8 @@ public class GILBERTHilfeModul extends Textmodul {
             "- Wie ist die Praxisarbeit Bewertung?";
 
     public GILBERTHilfeModul() {
-        super(Anleitung);
+        super(ANLEITUNG);
     }
 
 
-    @Override
-    public void beantworteAnfrage(Anfrage anfrage) {
-
-    }
 }

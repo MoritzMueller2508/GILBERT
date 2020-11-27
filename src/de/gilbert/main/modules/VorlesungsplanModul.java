@@ -12,18 +12,18 @@ import de.gilbert.main.Anfrage;
 import de.gilbert.main.Verweismodul;
 
 public class VorlesungsplanModul extends Verweismodul {
-	private static URL vorlesungsplanURL;
+	private static URL VORLESUNGSPLAN_URL;
 
 	static {
 		try {
-			vorlesungsplanURL = new URL("https://vorlesungsplan.dhbw-mannheim.de/");
+			VORLESUNGSPLAN_URL = new URL("https://vorlesungsplan.dhbw-mannheim.de/");
 		} catch (MalformedURLException e) {
-
+			e.printStackTrace();
 		}
 	}
 
 	public VorlesungsplanModul() {
-		super(vorlesungsplanURL, "VorlesungsplanURL");
+		super(VORLESUNGSPLAN_URL, "VorlesungsplanURL");
 
 	}
 
@@ -99,7 +99,7 @@ public class VorlesungsplanModul extends Verweismodul {
 	 * @return die generierte Url oder null, sollte beim parsen ein Fehler auftreten
 	 */
 	private URL generiereNeueUrl(String kurs, Anfrage anfrage) {
-		String neueUrl = vorlesungsplanURL.getHost();
+		String neueUrl = VORLESUNGSPLAN_URL.getHost();
 		neueUrl += "/index.php?action=view&gid=3067001&uid=" + kurs;
 		
 		if(anfrage.getParameter().containsKey("datumsangabe")) {

@@ -21,7 +21,6 @@ public class Kommandozeile extends Benutzerschnittstelle {
 		if(userInput.equals("exit")){
 			System.exit(0);
 		}
-		scanner.close();
 		System.out.println("Hast du noch weitere Fragen?");
 		}
 

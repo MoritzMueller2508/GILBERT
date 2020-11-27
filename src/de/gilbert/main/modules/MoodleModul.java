@@ -6,16 +6,16 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 public class MoodleModul extends Verweismodul {
-    private static URL moodleURL;
+    private static URL MOODLE_URL;
     static {
         try {
-            moodleURL = new URL("https://moodle.dhbw-mannheim.de/login/index.php");
+            MOODLE_URL = new URL("https://moodle.dhbw-mannheim.de/login/index.php");
         }
         catch(MalformedURLException e) {
-
+            e.printStackTrace();
         }
     }
     public MoodleModul() {
-        super(moodleURL, "MoodleURL");
+        super(MOODLE_URL, "MoodleURL");
     }
 }
