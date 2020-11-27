@@ -17,7 +17,7 @@ public class ModHandbuchModul extends Verweismodul {
     }
 
 
-    public ModHandbuchModul(URL link, String platzhalter) {
-        super(link, platzhalter);
+    public ModHandbuchModul() {
+        super(ModHandbuch_URL,"Modulhandbuch");
     }
 }

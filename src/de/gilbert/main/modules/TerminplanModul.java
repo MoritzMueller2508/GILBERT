@@ -17,7 +17,7 @@ public class TerminplanModul extends Verweismodul {
     }
 
 
-    public TerminplanModul(URL link, String platzhalter) {
-        super(link, platzhalter);
+    public TerminplanModul() {
+        super(Terminplan_URL, "Terminplan");
     }
 }

@@ -35,7 +35,7 @@ public class VorlesungsplanModul extends Verweismodul {
 			String kursbezeichnung = null;
 
 			// Keine Datumsangabe in Anfrage
-			if (!anfrage.getParamter().containsKey("datumsangabe")) {
+			if (!anfrage.getParameter().containsKey("datumsangabe")) {
 				kursbezeichnung = kursbezeichnungInAnfrage(kursdaten, anfrage);
 				
 				// Kursbezeichnung in Anfrage gefunden
@@ -102,8 +102,8 @@ public class VorlesungsplanModul extends Verweismodul {
 		String neueUrl = vorlesungsplanURL.getHost();
 		neueUrl += "/index.php?action=view&gid=3067001&uid=" + kurs;
 		
-		if(anfrage.getParamter().containsKey("datumsangabe")) {
-			neueUrl += "&date=" + (Long) anfrage.getParamter().get("datumsangabe") / 1000;
+		if(anfrage.getParameter().containsKey("datumsangabe")) {
+			neueUrl += "&date=" + (Long) anfrage.getParameter().get("datumsangabe") / 1000;
 		}
 
 		try {

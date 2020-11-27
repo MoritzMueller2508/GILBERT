@@ -16,6 +16,6 @@ public class NotenModul extends Verweismodul {
         }
     }
     public NotenModul() {
-        super(notenURL, "NotenURL");
+        super(notenURL, "Dualis");
     }
 }

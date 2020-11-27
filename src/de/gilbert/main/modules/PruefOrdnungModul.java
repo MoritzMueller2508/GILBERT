@@ -17,7 +17,7 @@ public class PruefOrdnungModul extends Verweismodul {
     }
 
 
-    public PruefOrdnungModul(URL link, String platzhalter) {
-        super(link, platzhalter);
+    public PruefOrdnungModul() {
+        super(PruefOrdnung_URL, "Prüfungsordnung");
     }
 }

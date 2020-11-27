@@ -16,7 +16,7 @@ public class DHBWFAQModul extends Verweismodul {
         }
     }
 
-    public DHBWFAQModul(URL link, String platzhalter) {
-        super(link, platzhalter);
+    public DHBWFAQModul() {
+        super(FAQ_url, "FAQ der DHBW");
     }
 }

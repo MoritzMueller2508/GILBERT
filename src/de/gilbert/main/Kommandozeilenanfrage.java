@@ -14,11 +14,13 @@ public class Kommandozeilenanfrage extends Anfrage {
 	//TODO: implement
 	@Override
 	public void schreibeAntwort(String text) {
+
 	}
 	
 	//TODO: implement
 	@Override
 	public void schreibeVerweis(URL link, String platzhalter) {
+
 	}
 	
 	//TODO: implement

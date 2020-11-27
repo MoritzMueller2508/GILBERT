@@ -35,7 +35,7 @@ public abstract class Anfrage {
 		return woerter;
 	}
 	
-	public Map<String, Object> getParamter() {
+	public Map<String, Object> getParameter() {
 		return parameter;
 	}
 }

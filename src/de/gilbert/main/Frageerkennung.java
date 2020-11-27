@@ -28,7 +28,7 @@ public class Frageerkennung extends Erkennungsmodul {
 		}
 		//Es soll nur das am besten passende Fragewort abgespeichert werden. 
 		if(bestesFrageWortIndex >= 0) {
-			anfrage.getParamter().put("fragewort", bestesFrageWort);
+			anfrage.getParameter().put("fragewort", bestesFrageWort);
 		}
 	}
 

@@ -29,7 +29,7 @@ public class Datumserkennung extends Erkennungsmodul{
 		}
 		//Es soll nur die am besten passende Datumsangabe abgespeichert werden. 
 		if (besteDatumsangabeIndex >= 0) {
-			anfrage.getParamter().put("datumsangabe", new Date(datumsKeyWoerter.get(besteDatumsangabe)));
+			anfrage.getParameter().put("datumsangabe", new Date(datumsKeyWoerter.get(besteDatumsangabe)));
 		}
 	
 	}

@@ -16,6 +16,6 @@ public class MensaplanModul extends Verweismodul {
         }
     }
     public MensaplanModul() {
-        super(mensaURL, "MensaURL");
+        super(mensaURL, "Mensa");
     }
 }

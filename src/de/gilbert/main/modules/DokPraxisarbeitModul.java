@@ -16,7 +16,7 @@ public class DokPraxisarbeitModul extends Verweismodul {
         }
     }
 
-    public DokPraxisarbeitModul(URL link, String platzhalter) {
-        super(link, platzhalter);
+    public DokPraxisarbeitModul() {
+        super(PraxisarbeitsURL, "Praxisarbeit");
     }
 }
