@@ -12,7 +12,6 @@ public abstract class Anfrage {
 	public Anfrage(String anfrage) {
 		this.anfrage = anfrage;
 		this.woerter = anfrage.split("\\s+");
-
 		parameter = new HashMap<>();
 	}
 	

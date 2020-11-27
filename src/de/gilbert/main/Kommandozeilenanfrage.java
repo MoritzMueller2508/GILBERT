@@ -28,6 +28,7 @@ public class Kommandozeilenanfrage extends Anfrage {
 	@Override
 	public Object frageAuswahl(String frage, Map<String, Object> auswahl) {
 		System.out.println(frage);
+
 		for(String keyElement : auswahl.keySet()){
 			System.out.println(keyElement);
 		}

@@ -1,9 +1,13 @@
 package de.gilbert.main;
 
+import de.gilbert.main.modules.*;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -42,12 +46,21 @@ public class Spracherkennung {
 		}
 	}
 
-	//TODO: implement
-	public void importiereModul() {
-		// Testcode: keine Erkennungsmodule oder Module werden geladen,
-		//           es werden aber schon die Listen angelegt, um diese iterieren zu können
-		erkennungsmodule = Collections.emptyList();
-		module = Collections.emptyList();
+	public void importiereModul(){
+		module = new ArrayList<>();
+		erkennungsmodule = new ArrayList<>();
+		module.add(new DHBWFAQModul());
+		module.add(new DokPraxisarbeitModul());
+		module.add(new GILBERTHilfeModul());
+		module.add(new MensaplanModul());
+		module.add(new ModHandbuchModul());
+		module.add(new MoodleModul());
+		module.add(new NotenModul());
+		module.add(new PruefOrdnungModul());
+		module.add(new TerminplanModul());
+		module.add(new VorlesungsplanModul());
+		erkennungsmodule.add(new Frageerkennung());
+		erkennungsmodule.add(new Datumserkennung());
 	}
 	
 	public void bearbeiteAnfrage(Anfrage anfrage) {
