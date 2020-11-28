@@ -1,5 +1,6 @@
 package de.gilbert.main;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.Map;
 import java.util.Scanner;
@@ -22,7 +23,17 @@ public class Kommandozeilenanfrage extends Anfrage {
 
 	@Override
 	public void schreibeVerweis(URL link, String platzhalter) {
-		System.out.println(platzhalter+": "+ link);
+		System.out.println(platzhalter + ": " + link);
+
+		if (frageBestaetigung("Soll ich den Link in Deinem Standardbrowser öffnen?")) {
+			try {
+				Runtime.getRuntime().exec(
+						"rundll32 url.dll,FileProtocolHandler "
+								+ link);
+			} catch (IOException e) {
+				System.out.println("Das hat nicht geklappt... ");
+			}
+		}
 	}
 
 

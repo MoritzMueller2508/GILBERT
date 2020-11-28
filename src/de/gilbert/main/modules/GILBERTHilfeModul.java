@@ -27,5 +27,8 @@ public class GILBERTHilfeModul extends Textmodul {
         super(schluessel, ANLEITUNG);
     }
 
+    public static String getAnleitung() {
+        return ANLEITUNG;
+    }
 
 }

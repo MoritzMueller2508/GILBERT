@@ -1,5 +1,7 @@
 package de.gilbert.main;
 
+import de.gilbert.main.modules.GILBERTHilfeModul;
+
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -17,11 +19,15 @@ public class Kommandozeile extends Benutzerschnittstelle {
 		}
 
 		Scanner scanner = new Scanner(System.in);
-		System.out.println("Hallo! Ich bin GILBERT und bin da, um dir zu helfen.\n" +
-				           "Hast du eine Frage?");
+		System.out.println(GILBERTHilfeModul.getAnleitung());
+		System.out.println();
+		System.out.println("Wie kann ich dir heute helfen?");
 		while(true) {
 			String userInput = scanner.nextLine();
-			if (userInput.equalsIgnoreCase("exit") || userInput.equalsIgnoreCase("nein")) System.exit(0);
+			if (userInput.equalsIgnoreCase("exit") || userInput.equalsIgnoreCase("nein")) {
+				System.out.println("Ich hoffe ich, konnte helfen. Bis zum nächsten Mal!");
+				System.exit(0);
+			}
 			Kommandozeilenanfrage kommandozeilenanfrage = new Kommandozeilenanfrage(scanner, userInput);
 			spracherkennung.bearbeiteAnfrage(kommandozeilenanfrage);
 			System.out.println("Hast du noch weitere Fragen?");
