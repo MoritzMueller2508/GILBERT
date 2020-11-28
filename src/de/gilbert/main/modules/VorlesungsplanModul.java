@@ -24,8 +24,7 @@ public class VorlesungsplanModul extends Verweismodul {
 	}
 
 	public VorlesungsplanModul(String[] schluessel) {
-		super(schluessel, VORLESUNGSPLAN_URL, "VorlesungsplanURL");
-
+		super(schluessel, VORLESUNGSPLAN_URL, "Vorlesungsplan");
 	}
 
 	@Override
@@ -34,6 +33,7 @@ public class VorlesungsplanModul extends Verweismodul {
 		try {
 			kursdaten = csvData();
 			String kursbezeichnung;
+			boolean beantwortet = false;
 
 			// Keine Datumsangabe in Anfrage
 			if (!anfrage.getParameter().containsKey("datumsangabe")) {
@@ -41,7 +41,8 @@ public class VorlesungsplanModul extends Verweismodul {
 				
 				// Kursbezeichnung in Anfrage gefunden
 				if (kursbezeichnung != null) {
-					anfrage.schreibeVerweis(generiereNeueUrl(kursdaten.get(kursbezeichnung), anfrage), "VorlesungsplanURL");
+					anfrage.schreibeVerweis(generiereNeueUrl(kursdaten.get(kursbezeichnung), anfrage), "Vorlesungsplan");
+					beantwortet = true;
 				
 				// Keine Kursbezeichnung in Anfrage gefunden
 				} else { // Keine Kursbezeichnung gefunden
@@ -51,7 +52,8 @@ public class VorlesungsplanModul extends Verweismodul {
 
 					//Passende Kursbezeichnung eingegeben
 					if (kursbezeichnung.length() != 0 && kursdaten.containsKey(kursbezeichnung.toUpperCase())) {
-						anfrage.schreibeVerweis(generiereNeueUrl(kursdaten.get(kursbezeichnung), anfrage), "VorlesungsplanURL");
+						anfrage.schreibeVerweis(generiereNeueUrl(kursdaten.get(kursbezeichnung), anfrage), "Vorlesungsplan");
+						beantwortet = true;
 					}
 				}
 			
@@ -60,19 +62,21 @@ public class VorlesungsplanModul extends Verweismodul {
 				kursbezeichnung = kursbezeichnungInAnfrage(kursdaten, anfrage);
 				// Kursbezeichnung in Anfrage gefunden
 				if (kursbezeichnung != null) { 
-					anfrage.schreibeVerweis(generiereNeueUrl(kursbezeichnung, anfrage), "VorlesungsplanURL");
+					anfrage.schreibeVerweis(generiereNeueUrl(kursbezeichnung, anfrage), "Vorlesungsplan");
+					beantwortet = true;
 				
 				// Keine Kursbezeichnung in Anfrage gefunden
 				} else {
 					kursbezeichnung = (String) anfrage.frageWert(
 							"Leider fehlt die Kursbezeichnung zur Bearbeitung der Anfrage. Bitte gebe die Kursbezeichnung ein.");
 					if (kursdaten.containsKey(kursbezeichnung)) {
-						anfrage.schreibeVerweis(generiereNeueUrl(kursdaten.get(kursbezeichnung), anfrage), "VorlesungsplanURL");
+						anfrage.schreibeVerweis(generiereNeueUrl(kursdaten.get(kursbezeichnung), anfrage), "Vorlesungsplan");
+						beantwortet = true;
 					}
 				}
 			}
 			// Keine Kursbezeichnung gesetzt.
-			super.beantworteAnfrage(anfrage);
+			if (!beantwortet) super.beantworteAnfrage(anfrage);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
