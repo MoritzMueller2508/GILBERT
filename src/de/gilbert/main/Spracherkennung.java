@@ -72,16 +72,17 @@ public class Spracherkennung {
 		erkennungsmodule = new ArrayList<>();
 
 		Map<Integer, String[]> schluessel = ladeSchluessel();
-		module.add(new MoodleModul(getOrDefault(schluessel, 1)));          // Modul 1
-		module.add(new NotenModul(getOrDefault(schluessel, 2)));           // Modul 2
-		module.add(new GILBERTHilfeModul(getOrDefault(schluessel, 3)));    // Modul 3
-		module.add(new MensaplanModul(getOrDefault(schluessel, 4)));       // Modul 4
-		module.add(new VorlesungsplanModul(getOrDefault(schluessel, 5)));  // Modul 5
-		module.add(new PruefOrdnungModul(getOrDefault(schluessel, 6)));    // Modul 6
-		module.add(new TerminplanModul(getOrDefault(schluessel, 7)));      // Modul 7
-		module.add(new ModHandbuchModul(getOrDefault(schluessel, 8)));     // Modul 8
-		module.add(new DokPraxisarbeitModul(getOrDefault(schluessel, 9))); // Modul 9
-		module.add(new DHBWFAQModul(getOrDefault(schluessel, 10)));        // Modul 10
+		module.add(new MoodleModul(getOrDefault(schluessel, 1)));          // Modul  1 - Moodle / Blackboard
+		module.add(new NotenModul(getOrDefault(schluessel, 2)));           // Modul  2 - Dualis / Noten
+		module.add(new GILBERTHilfeModul(getOrDefault(schluessel, 3)));    // Modul  3 - Gilbert Intro
+		module.add(new MensaplanModul(getOrDefault(schluessel, 4)));       // Modul  4 - Mensaplan
+		module.add(new VorlesungsplanModul(getOrDefault(schluessel, 5)));  // Modul  5 - Vorlesungsplan
+		module.add(new PruefOrdnungModul(getOrDefault(schluessel, 6)));    // Modul  6 - Prüfungsordnung
+		module.add(new TerminplanModul(getOrDefault(schluessel, 7)));      // Modul  7 - Terminplan
+		module.add(new ModHandbuchModul(getOrDefault(schluessel, 8)));     // Modul  8 - Modul Handbuch
+		module.add(new DokPraxisarbeitModul(getOrDefault(schluessel, 9))); // Modul  9 - Praxisarbeit
+		module.add(new DHBWFAQModul(getOrDefault(schluessel, 10)));        // Modul 10 - FAQ
+		module.add(new PhasenModul(getOrDefault(schluessel, 11)));         // Modul 11 - Theorie-/Praxisphasen
 
 		erkennungsmodule.add(new Frageerkennung());
 		erkennungsmodule.add(new Datumserkennung());
@@ -104,16 +105,17 @@ public class Spracherkennung {
 
 	/**
 	 * findet das richtige Modul um die Anfrage zu bearbeiten
-	 * @param anfrage
 	 * @return das Modul, das am besten zur Anfrage passt
 	 */
 	private Modul findeModul(Anfrage anfrage) {
-		int[] modulCounter = new int[module.size()];
+		int maxModulCounter = 0;
+		Modul maxModul = null;
+		// int[] modulCounter = new int[module.size()];
 
 		// zähle die Schluessel, von jedem Modul, die in der Anfrage auftauchen
 		String[] woerter = anfrage.getWoerter();
-		for (int modulIndex = 0; modulIndex < module.size(); modulIndex++) {
-			Modul modul = module.get(modulIndex);
+		for (Modul modul: module) {
+			int modulCounter = 0;
 
 			// nacheinander werden jetzt alle Schluessel des aktuellen Moduls untersucht
 			String[] modulSchluessel = modul.getSchluessel();
@@ -130,7 +132,7 @@ public class Spracherkennung {
 						if (anzahlWoerter == split.length) {
 							// wenn alle Wörter des Schluessels gefunden wurden
 							// erhöhe den Counter des Moduls und breche die Suche ab
-							modulCounter[modulIndex]++;
+							modulCounter++;
 							break;
 						}
 					} else {
@@ -142,31 +144,20 @@ public class Spracherkennung {
 					}
 				}
 			}
-		}
 
-		// suche das Modul mit den meisten passenden Schluesseln
-		// beachte dabei, dass es mindestens einen passenden Schluessel hat
-		int index = -1, max = 0;
-		for (int modulIndex = 0; modulIndex < modulCounter.length; modulIndex++) {
-			if (modulCounter[modulIndex] > max) {
-				index = modulIndex; max = modulCounter[modulIndex];
-			}
-		}
-
-		if (max > 0) { // wenn es mindestens einen Treffer gab: prüfe, ob das Maximum eindeutig ist
-			// man kann ab index + 1 anfangen, da modulCounter[index] == max immer wahr sein muss
-			// und jeder Counter vorher kleiner sein musste als max
-			for (int modulIndex = index + 1; modulIndex < modulCounter.length; modulIndex++) {
-				if (modulCounter[modulIndex] == max) {
-					// markiere die Nichteindeutigkeit: Es kann kein Element ausgewählt werden
-					index = -1; break;
-				}
+			if (modulCounter > maxModulCounter) {
+				// das Modul hat mehr Treffer, als jedes andere vorherige Modul
+				maxModulCounter = modulCounter;
+				maxModul = modul;
+			} else if (modulCounter == maxModulCounter) {
+				// das Modul ist nicht eindeutig, es gibt mindestens 2 Module mit maxModulCounter Treffern
+				maxModul = null;
 			}
 		}
 
 		// gebe ein Modul mit mindestens einem Treffer zurück, wenn kein anderes Modul
 		// mindestens genauso viele Treffer hat
-		return index >= 0? module.get(index): null;
+		return maxModul;
 	}
 	
 	public List<Erkennungsmodul> getErkennungsmodule() {

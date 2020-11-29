@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,8 +24,7 @@ public class VorlesungsplanModul extends Verweismodul {
 	}
 
 	public VorlesungsplanModul(String[] schluessel) {
-		super(schluessel, VORLESUNGSPLAN_URL, "VorlesungsplanURL");
-
+		super(schluessel, VORLESUNGSPLAN_URL, "Vorlesungsplan");
 	}
 
 	@Override
@@ -32,7 +32,8 @@ public class VorlesungsplanModul extends Verweismodul {
 		Map<String, String> kursdaten;
 		try {
 			kursdaten = csvData();
-			String kursbezeichnung = null;
+			String kursbezeichnung;
+			boolean beantwortet = false;
 
 			// Keine Datumsangabe in Anfrage
 			if (!anfrage.getParameter().containsKey("datumsangabe")) {
@@ -40,7 +41,8 @@ public class VorlesungsplanModul extends Verweismodul {
 				
 				// Kursbezeichnung in Anfrage gefunden
 				if (kursbezeichnung != null) {
-					anfrage.schreibeVerweis(generiereNeueUrl(kursdaten.get(kursbezeichnung), anfrage), "VorlesungsplanURL");
+					anfrage.schreibeVerweis(generiereNeueUrl(kursdaten.get(kursbezeichnung), anfrage), "Vorlesungsplan");
+					beantwortet = true;
 				
 				// Keine Kursbezeichnung in Anfrage gefunden
 				} else { // Keine Kursbezeichnung gefunden
@@ -50,7 +52,8 @@ public class VorlesungsplanModul extends Verweismodul {
 
 					//Passende Kursbezeichnung eingegeben
 					if (kursbezeichnung.length() != 0 && kursdaten.containsKey(kursbezeichnung.toUpperCase())) {
-						anfrage.schreibeVerweis(generiereNeueUrl(kursdaten.get(kursbezeichnung), anfrage), "VorlesungsplanURL");
+						anfrage.schreibeVerweis(generiereNeueUrl(kursdaten.get(kursbezeichnung), anfrage), "Vorlesungsplan");
+						beantwortet = true;
 					}
 				}
 			
@@ -59,19 +62,21 @@ public class VorlesungsplanModul extends Verweismodul {
 				kursbezeichnung = kursbezeichnungInAnfrage(kursdaten, anfrage);
 				// Kursbezeichnung in Anfrage gefunden
 				if (kursbezeichnung != null) { 
-					anfrage.schreibeVerweis(generiereNeueUrl(kursbezeichnung, anfrage), "VorlesungsplanURL");
+					anfrage.schreibeVerweis(generiereNeueUrl(kursbezeichnung, anfrage), "Vorlesungsplan");
+					beantwortet = true;
 				
 				// Keine Kursbezeichnung in Anfrage gefunden
 				} else {
 					kursbezeichnung = (String) anfrage.frageWert(
 							"Leider fehlt die Kursbezeichnung zur Bearbeitung der Anfrage. Bitte gebe die Kursbezeichnung ein.");
 					if (kursdaten.containsKey(kursbezeichnung)) {
-						anfrage.schreibeVerweis(generiereNeueUrl(kursdaten.get(kursbezeichnung), anfrage), "VorlesungsplanURL");
+						anfrage.schreibeVerweis(generiereNeueUrl(kursdaten.get(kursbezeichnung), anfrage), "Vorlesungsplan");
+						beantwortet = true;
 					}
 				}
 			}
 			// Keine Kursbezeichnung gesetzt.
-			super.beantworteAnfrage(anfrage);
+			if (!beantwortet) super.beantworteAnfrage(anfrage);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -99,15 +104,14 @@ public class VorlesungsplanModul extends Verweismodul {
 	 * @return die generierte Url oder null, sollte beim parsen ein Fehler auftreten
 	 */
 	private URL generiereNeueUrl(String kurs, Anfrage anfrage) {
-		String neueUrl = VORLESUNGSPLAN_URL.getHost();
-		neueUrl += "/index.php?action=view&gid=3067001&uid=" + kurs;
+		String neueUrl = "/index.php?action=view&gid=3067001&uid=" + kurs;
 		
 		if(anfrage.getParameter().containsKey("datumsangabe")) {
-			neueUrl += "&date=" + (Long) anfrage.getParameter().get("datumsangabe") / 1000;
+			neueUrl += "&date=" + ((Date) anfrage.getParameter().get("datumsangabe")).getTime() / 1000;
 		}
 
 		try {
-			return new URL(neueUrl);
+			return new URL(VORLESUNGSPLAN_URL, neueUrl);
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 			return null;
