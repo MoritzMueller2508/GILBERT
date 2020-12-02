@@ -111,13 +111,16 @@ public class Spracherkennung {
 	 */
 	private Modul findeModul(Anfrage anfrage) {
 		int maxModulCounter = 0;
-		Modul maxModul = null;
-		// int[] modulCounter = new int[module.size()];
+		// Anzahl der Wörter, die nur passen mit levenshtein distance <= 2
+		int maxModulCounterNichtGleich = 0;
+		List<Modul> maxModule = new LinkedList<>();
 
 		// zähle die Schluessel, von jedem Modul, die in der Anfrage auftauchen
 		String[] woerter = anfrage.getWoerter();
 		for (Modul modul: module) {
 			int modulCounter = 0;
+			// Anzahl der Wörter, die nur passen mit levenshtein distance <= 2
+			int modulCounterNichtGleich = 0;
 
 			// nacheinander werden jetzt alle Schluessel des aktuellen Moduls untersucht
 			String[] modulSchluessel = modul.getSchluessel();
@@ -129,6 +132,9 @@ public class Spracherkennung {
 				int anzahlWoerter = 0; // die Anzahl der Wörter des Schluessel, die schon gefunden wurden
 				for (String wort : woerter) {
 					if (sindWoerterWahrscheinlichGleich(wort, split[anzahlWoerter])) {
+						// das Modul ist nur ähnlich
+						if (!wort.equalsIgnoreCase(split[anzahlWoerter])) modulCounterNichtGleich++;
+
 						// das nächste für den Schluessel erwartete Wort wird gefunden
 						anzahlWoerter++; // es wurde ein weiteres Wort des Schluessels gefunden
 						if (anzahlWoerter == split.length) {
@@ -150,16 +156,29 @@ public class Spracherkennung {
 			if (modulCounter > maxModulCounter) {
 				// das Modul hat mehr Treffer, als jedes andere vorherige Modul
 				maxModulCounter = modulCounter;
-				maxModul = modul;
+				maxModulCounterNichtGleich = modulCounterNichtGleich;
+
+				maxModule.clear();
+				maxModule.add(modul);
+				// maxModul = modul;
 			} else if (modulCounter == maxModulCounter) {
-				// das Modul ist nicht eindeutig, es gibt mindestens 2 Module mit maxModulCounter Treffern
-				maxModul = null;
+				if (modulCounterNichtGleich < maxModulCounterNichtGleich) {
+					// diese Modul passt besser als alle anderen, weil es mehr wirklich passende Schlüssel hat
+					maxModule.clear();
+					maxModule.add(modul); maxModulCounterNichtGleich = modulCounterNichtGleich;
+				} else if (modulCounterNichtGleich == maxModulCounterNichtGleich)
+					// das Modul ist nicht eindeutig, es gibt mindestens 2 Module mit maxModulCounter Treffern
+					maxModule.add(modul);
 			}
 		}
 
-		// gebe ein Modul mit mindestens einem Treffer zurück, wenn kein anderes Modul
-		// mindestens genauso viele Treffer hat
-		return maxModul;
+		if (maxModule.size() == 1) return maxModule.get(0);
+		if (maxModule.size() == 2)
+			anfrage.frageAuswahl("Was meinst du?", Map.of(
+					maxModule.get(0).toString(), maxModule.get(0),
+					maxModule.get(1).toString(), maxModule.get(1)));
+
+		return null;
 	}
 
 	private boolean sindWoerterWahrscheinlichGleich(String a, String b) {
@@ -168,38 +187,40 @@ public class Spracherkennung {
 	}
 
 	/**
-	 * Um den Abstand zweier Strings zu berechnen wird der Levenshtein-Abstand verwendet.
-	 * Es wird geprüft, wie viele Operationen (Einfügen, Entfernen, Austauschen einzelner Zeichen) mindestens
-	 * benötigt werden, um zwei Strings ineinander zu überführen.
+	 * Um den Levenshtein-Abstand zweier Strings zu berechnen wird der Wagner–Fischer Algorithmus verwendet.
 	 *
 	 * @param a das erste Wort
 	 * @param b das zweite Wort
 	 * @return den Levenshtein-Abstand der Parameter
 	 */
 	private int berechneLevenshteinAbstand(String a, String b) {
-		// kann potentiell verbessert werden, indem
-		//   a. iterativ vorgegangen wird
-		//   b. Ergebnisse zwischengespeichert
+		if (a.isEmpty()) return b.length();
+		if (b.isEmpty()) return a.length();
 
-		// wenn ein String leer ist,
-		// unterscheiden sich beide Strings an allen Stellen des anderen Strings
-		if (a.isEmpty()) return b.length();	// z.B. lev(a = "", b = "12") = b.length() = 2
-		if (b.isEmpty()) return a.length(); // z.B. lev(a = "12", b = "") = a.length() = 2
+		int[][] matrix = new int[a.length() + 1][b.length() + 1];
 
-		// entweder die Strings sind an der ersten Stelle gleich,
-		// dann unterscheiden sie sich nur an den noch verbleibenden Stellen,
-		//     z.B. lev(a = "0a", b = "0b") = lev(a = "a", b = "b")
-		if (a.charAt(0) == b.charAt(0)) return berechneLevenshteinAbstand(a.substring(1), b.substring(1));
-		// oder sie unterscheiden sich an der ersten Stelle. Dann können lokal
-		//   1. Zeichen in b eingefügt sein,  z.B. lev(a = "12",  b = "012")  = 1 + lev(a = "12", b = "12")
-		//   2. Zeichen in a eingefügt sein,  z.B. lev(a = "012", b = "12")   = 1 + lev(a = "12", b = "12")
-		//   3. Zeichen getauscht sein,       z.B. lev(a = "a12", b = "b12")  = 1 + lev(a = "12", b = "12")
-		// Es wird die Variante mit den wenigsten weiteren Unterschieden gewählt.
-		else return 1 + Math.min(
-				/* 1. Fall */ berechneLevenshteinAbstand(a, b.substring(1)), Math.min(
-				/* 2. Fall */ berechneLevenshteinAbstand(a.substring(1), b),
-				/* 3. Fall */ berechneLevenshteinAbstand(a.substring(1), b.substring(1))
-		));
+		for (int i = 0; i < matrix.length; i++) matrix[i][0] = i;
+		for (int j = 0; j < matrix[0].length; j++) matrix[0][j] = j;
+
+		for (int i = 0; i + 1 < matrix.length; i++) {
+			for (int j = 0; j + 1 < matrix[i].length; j++) {
+				matrix[i + 1][j + 1] = min(
+					matrix[i][j] + (a.charAt(i) == b.charAt(j)? 0: 1),
+					matrix[i][j+1] + 1,
+					matrix[i+1][j] + 1
+				);
+			}
+		}
+
+		return matrix[a.length()][b.length()];
+	}
+
+	private int min(int... a) {
+		if (a.length == 0) throw new IllegalArgumentException();
+
+		int min = a[0];
+		for (int i = 1; i < a.length; i++) if (a[i] < min) min = a[i];
+		return min;
 	}
 
 	public List<Erkennungsmodul> getErkennungsmodule() {

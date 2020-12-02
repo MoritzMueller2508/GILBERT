@@ -17,4 +17,9 @@ public abstract class Modul {
 	public String[] getSchluessel() {
 		return schluessel;
 	}
+
+	@Override
+	public String toString() {
+		return getClass().getSimpleName();
+	}
 }
