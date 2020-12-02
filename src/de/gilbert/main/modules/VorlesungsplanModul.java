@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import de.gilbert.main.Anfrage;
+import de.gilbert.main.Util;
 import de.gilbert.main.Verweismodul;
 /**
  * @author Lukas Rothenbach
@@ -33,7 +34,7 @@ public class VorlesungsplanModul extends Verweismodul {
 	public void beantworteAnfrage(Anfrage anfrage) {
 		Map<String, String> kursdaten;
 		try {
-			kursdaten = csvData();
+			kursdaten = Util.csvDataHashMap("Kurszuweisungen");
 			String kursbezeichnung;
 			boolean beantwortet = false;
 

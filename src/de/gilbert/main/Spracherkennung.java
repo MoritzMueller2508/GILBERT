@@ -25,32 +25,13 @@ public class Spracherkennung {
 		importiereModul();
 	}
 
-	/**
-	 * Liest die Daten aus der CSV Datei aus und speichert sie als ArrayList
-	 */
-	public  ArrayList<String[]> csvData() throws IOException {
-		String csvFile = "Gilbert_Wortschatz.csv";
-		String nextLine;
-		String cvsSplitBy = ";";
-		ArrayList<String[]> gilbertData = new ArrayList<>();
-
-		try (BufferedReader bufferedReader = new BufferedReader(new FileReader(csvFile))) {
-			bufferedReader.readLine(); // ignore title line
-			while ((nextLine = bufferedReader.readLine()) != null) {
-				String[] split = nextLine.split(cvsSplitBy);
-				//
-				if(split.length >= 2) gilbertData.add(split);
-			}
-
-			return gilbertData;
-		}
-	}
 
 	/**
 	 * Läd die CSV Datei und ordnet die Daten den Modulen zu
 	 */
 	public Map<Integer, String[]> ladeSchluessel() throws IOException {
-		ArrayList<String[]> csvData = csvData();
+
+		ArrayList<String[]> csvData = Util.csvDataArrayList("Gilbert_Wortschatz");
 		Map<Integer, List<String>> schluessel = new HashMap<>();
 
 		for (String[] data: csvData) {
