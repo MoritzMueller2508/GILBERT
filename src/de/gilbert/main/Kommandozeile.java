@@ -27,7 +27,7 @@ public class Kommandozeile extends Benutzerschnittstelle {
 		while(true) {
 			String userInput = scanner.nextLine();
 			if (userInput.equalsIgnoreCase("exit") || userInput.equalsIgnoreCase("nein")) {
-				System.out.println("Ich hoffe ich, konnte helfen. Bis zum nächsten Mal!");
+				System.out.println("Ich hoffe, ich konnte helfen. Bis zum nächsten Mal!");
 				System.exit(0);
 			}
 			Kommandozeilenanfrage kommandozeilenanfrage = new Kommandozeilenanfrage(scanner, userInput);
