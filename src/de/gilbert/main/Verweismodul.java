@@ -1,7 +1,9 @@
 package de.gilbert.main;
-/*erstellt von Lukas Rothenbach*/
-import java.net.URL;
 
+import java.net.URL;
+/**
+ * @author Lukas Rothenbach
+ */
 public abstract class Verweismodul extends Modul {
 	private URL verweis;
 	private String platzhalter;

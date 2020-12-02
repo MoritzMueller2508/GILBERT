@@ -1,5 +1,5 @@
 package de.gilbert.main.modules;
-/*erstellt von  Lukas Rothenbach*/
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -11,7 +11,9 @@ import java.util.Map;
 
 import de.gilbert.main.Anfrage;
 import de.gilbert.main.Verweismodul;
-
+/**
+ * @author Lukas Rothenbach
+ */
 public class VorlesungsplanModul extends Verweismodul {
 	private static URL VORLESUNGSPLAN_URL;
 

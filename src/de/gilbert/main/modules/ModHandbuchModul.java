@@ -1,10 +1,12 @@
 package de.gilbert.main.modules;
-/*erstellt von Moritz Mueller*/
+
 import de.gilbert.main.Verweismodul;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-
+/**
+ * @author Moritz Mueller
+ */
 public class ModHandbuchModul extends Verweismodul {
     private static URL MODHANDBUCH_URL;
 

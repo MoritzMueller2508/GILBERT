@@ -1,10 +1,12 @@
 package de.gilbert.main.modules;
-/*erstellt von Rosa Kern*/
+
 import de.gilbert.main.Verweismodul;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-
+/**
+ * @author Rosa Kern
+ */
 public class MoodleModul extends Verweismodul {
     private static URL MOODLE_URL;
     static {

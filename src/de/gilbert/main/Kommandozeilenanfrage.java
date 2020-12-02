@@ -4,7 +4,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Map;
 import java.util.Scanner;
-/*erstellt von Yannis Eigenbrodt und Lukas Rothenbach*/
+
+/**
+ * @author Yannis Eigenbrodt, Lukas Rothenbach
+ */
 public class Kommandozeilenanfrage extends Anfrage {
 	
 	private Scanner scanner;
@@ -48,7 +51,7 @@ public class Kommandozeilenanfrage extends Anfrage {
 			antwort = scanner.nextLine();
 
 			if (!auswahl.containsKey(antwort)) System.out.println("Ich bin mir nicht sicher, was du meinst.");
-		} while (auswahl.containsKey(antwort));
+		} while (!auswahl.containsKey(antwort));
 
 		return auswahl.get(antwort);
 	}

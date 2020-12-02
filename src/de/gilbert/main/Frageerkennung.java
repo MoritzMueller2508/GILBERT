@@ -1,6 +1,9 @@
 package de.gilbert.main;
 
-/*erstellt von Lukas Rothenbach*/
+
+/**
+ * @author Lukas Rothenbach
+ */
 public class Frageerkennung extends Erkennungsmodul {
 
 	/**

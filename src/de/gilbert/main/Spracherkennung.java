@@ -6,7 +6,10 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
-/*erstellt von Jonas Knebel, Lukas Rothenbach und Yannis Eigenbrodt*/
+
+/**
+ * @author Jonas Knebel, Lukas Rothenbach und Yannis Eigenbrodt
+ */
 public class Spracherkennung {
 	
 	private List<Erkennungsmodul> erkennungsmodule;

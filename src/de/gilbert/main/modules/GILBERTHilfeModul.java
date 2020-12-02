@@ -1,9 +1,12 @@
 package de.gilbert.main.modules;
-/*erstellt von Zusibell Jimenez*/
+
 import de.gilbert.main.Anfrage;
 import de.gilbert.main.Textmodul;
 import de.gilbert.main.Verweismodul;
 
+/**
+ * @author Zusibell Jimenez
+ */
 public class GILBERTHilfeModul extends Textmodul {
     private static String ANLEITUNG = "Hallo, ich bin GILBERT.\n" +
             "Ich bin hier um dir mit deiner Anfrage bezüglich der DHBW Mannheim zu helfen.\n" +

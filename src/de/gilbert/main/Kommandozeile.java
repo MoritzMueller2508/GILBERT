@@ -4,7 +4,10 @@ import de.gilbert.main.modules.GILBERTHilfeModul;
 
 import java.io.IOException;
 import java.util.Scanner;
-/*erstellt von Jonas Knebel*/
+
+/**
+ * @author Jonas Knebel
+ */
 public class Kommandozeile extends Benutzerschnittstelle {
 
 	public void beginneLoop() {
@@ -24,7 +27,7 @@ public class Kommandozeile extends Benutzerschnittstelle {
 		while(true) {
 			String userInput = scanner.nextLine();
 			if (userInput.equalsIgnoreCase("exit") || userInput.equalsIgnoreCase("nein")) {
-				System.out.println("Ich hoffe ich, konnte helfen. Bis zum nächsten Mal!");
+				System.out.println("Ich hoffe, ich konnte helfen. Bis zum nächsten Mal!");
 				System.exit(0);
 			}
 			Kommandozeilenanfrage kommandozeilenanfrage = new Kommandozeilenanfrage(scanner, userInput);

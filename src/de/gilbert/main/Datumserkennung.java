@@ -1,5 +1,5 @@
 package de.gilbert.main;
-/*erstellt von Lukas Rothenbach und Yannis Eigenbrodt*/
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -7,7 +7,9 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.spi.CalendarDataProvider;
-
+/**
+ * @author Lukas Rothenbach, Yannis Eigenbrodt
+ */
 public class Datumserkennung extends Erkennungsmodul{
 
 	private List<Datumsparser> parser = new ArrayList<>();
