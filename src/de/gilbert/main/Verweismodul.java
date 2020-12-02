@@ -1,5 +1,5 @@
 package de.gilbert.main;
-
+/*erstellt von Lukas Rothenbach*/
 import java.net.URL;
 
 public abstract class Verweismodul extends Modul {

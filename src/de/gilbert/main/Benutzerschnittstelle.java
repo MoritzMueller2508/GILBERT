@@ -1,5 +1,5 @@
 package de.gilbert.main;
-
+/*erstellt von Lukas Rothenbach*/
 public abstract class Benutzerschnittstelle {
 	
 	private Spracherkennung spracherkennung;

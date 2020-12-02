@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Map;
 import java.util.Scanner;
-
+/*erstellt von Yannis Eigenbrodt und Lukas Rothenbach*/
 public class Kommandozeilenanfrage extends Anfrage {
 	
 	private Scanner scanner;

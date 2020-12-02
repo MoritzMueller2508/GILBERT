@@ -1,5 +1,5 @@
 package de.gilbert.main.modules;
-
+/*erstellt von Yannis Eigenbrodt*/
 import de.gilbert.main.Anfrage;
 import de.gilbert.main.Kommandozeilenanfrage;
 import de.gilbert.main.Modul;

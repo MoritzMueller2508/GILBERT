@@ -1,5 +1,5 @@
 package de.gilbert.main;
-
+/*erstellt von Lukas Rothenbach und Yannis Eigenbrodt*/
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

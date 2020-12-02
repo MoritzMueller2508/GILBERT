@@ -4,7 +4,7 @@ import de.gilbert.main.modules.GILBERTHilfeModul;
 
 import java.io.IOException;
 import java.util.Scanner;
-
+/*erstellt von Jonas Knebel*/
 public class Kommandozeile extends Benutzerschnittstelle {
 
 	public void beginneLoop() {

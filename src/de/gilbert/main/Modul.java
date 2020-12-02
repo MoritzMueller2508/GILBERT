@@ -1,7 +1,7 @@
 package de.gilbert.main;
 
 import java.util.Objects;
-
+/*erstellt von Lukas Rothenbach*/
 public abstract class Modul {
 	private String[] schluessel;
 
