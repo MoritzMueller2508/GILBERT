@@ -36,23 +36,26 @@ public class Kommandozeilenanfrage extends Anfrage {
 		}
 	}
 
-
-	//TODO überarbeiten vielleicht
 	@Override
 	public <T> T frageAuswahl(String frage, Map<String, T> auswahl) {
-		System.out.println(frage);
 
-		for(String keyElement : auswahl.keySet()) {
-			System.out.println(keyElement);
-		}
-		String antwort = scanner.nextLine();
+		String antwort;
+		do {
+			System.out.println(frage);
+			for (String keyElement : auswahl.keySet()) {
+				System.out.println(keyElement);
+			}
+			antwort = scanner.nextLine();
+
+			if (!auswahl.containsKey(antwort)) System.out.println("Ich bin mir nicht sicher, was du meinst.");
+		} while (auswahl.containsKey(antwort));
+
 		return auswahl.get(antwort);
 	}
 	
 	public Object frageWert(String frage) {
 		System.out.println(frage);
-		String antwort = scanner.nextLine();
-		return antwort;
+		return scanner.nextLine();
 	}
 
 

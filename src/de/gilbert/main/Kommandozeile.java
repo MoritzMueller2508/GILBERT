@@ -6,8 +6,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Kommandozeile extends Benutzerschnittstelle {
-	
-	//TODO: Implement 
+
 	public void beginneLoop() {
 		Spracherkennung spracherkennung;
 		try {

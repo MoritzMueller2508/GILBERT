@@ -19,7 +19,6 @@ public class Spracherkennung {
 	private final Modul fallbackModul = new Textmodul(new String[0], "Ich konnte die Frage leider nicht verstehen.") {	};
 
 	public Spracherkennung() throws IOException {
-		// TODO: implement
 		importiereModul();
 	}
 
