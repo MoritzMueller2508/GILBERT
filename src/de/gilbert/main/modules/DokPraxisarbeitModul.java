@@ -1,10 +1,11 @@
 package de.gilbert.main.modules;
-/*erstellt von Jonas Knebel*/
-import de.gilbert.main.Verweismodul;
 
+import de.gilbert.main.Verweismodul;
 import java.net.MalformedURLException;
 import java.net.URL;
-
+/**
+ * @author Jonas Knebel
+ */
 public class DokPraxisarbeitModul extends Verweismodul {
     private static URL PRAXISARBEITSURL;
 

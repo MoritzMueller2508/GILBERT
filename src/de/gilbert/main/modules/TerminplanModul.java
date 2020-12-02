@@ -1,10 +1,12 @@
 package de.gilbert.main.modules;
-/*erstellt von Zusibell Jimenez*/
+
 import de.gilbert.main.Verweismodul;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-
+/**
+ * @author Zusibell Jimenez
+ */
 public class TerminplanModul extends Verweismodul {
     private static URL TERMINPLAN_URL;
 

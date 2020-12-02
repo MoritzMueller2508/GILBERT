@@ -1,5 +1,8 @@
 package de.gilbert.main;
-/*erstellt von Lukas Rothenbach*/
+
+/**
+ * @author Lukas Rothenbach
+ */
 public abstract class Textmodul extends Modul{
 	private String text;
 	

@@ -1,9 +1,11 @@
 package de.gilbert.main;
-/*erstellt von Lukas Rothenbach*/
+
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
-
+/**
+ * @author Lukas Rothenbach
+ */
 public abstract class Anfrage {
 	private String anfrage;
 	private String[] woerter;

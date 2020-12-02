@@ -1,5 +1,5 @@
 package de.gilbert.main.modules;
-/*erstellt von Yannis Eigenbrodt*/
+
 import de.gilbert.main.Anfrage;
 import de.gilbert.main.Kommandozeilenanfrage;
 import de.gilbert.main.Modul;
@@ -15,7 +15,9 @@ import java.time.format.FormatStyle;
 import java.time.temporal.TemporalQueries;
 import java.util.*;
 import java.util.function.Function;
-
+/**
+ * @author Yannis Eigenbrodt
+ */
 public class PhasenModul extends Modul {
 
     private Map<String, Phase[]> phasenTheorie;

@@ -1,10 +1,11 @@
 package de.gilbert.main.modules;
-/*erstellt von  Rosa Kern*/
 import de.gilbert.main.Verweismodul;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-
+/**
+ * @author Rosa Kern
+ */
 public class PruefOrdnungModul extends Verweismodul {
     private static URL PRUEFORDNUNG_URL;
 
