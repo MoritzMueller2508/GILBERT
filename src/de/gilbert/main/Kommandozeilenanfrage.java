@@ -51,7 +51,7 @@ public class Kommandozeilenanfrage extends Anfrage {
 			antwort = scanner.nextLine();
 
 			if (!auswahl.containsKey(antwort)) System.out.println("Ich bin mir nicht sicher, was du meinst.");
-		} while (auswahl.containsKey(antwort));
+		} while (!auswahl.containsKey(antwort));
 
 		return auswahl.get(antwort);
 	}
