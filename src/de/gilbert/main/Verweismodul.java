@@ -25,9 +25,5 @@ public abstract class Verweismodul extends Modul {
 	public String getPlatzhalter() {
 		return platzhalter;
 	}
-	
-	@Override
-	public String[] getSchluessel() {
-		return super.getSchluessel();
-	}
+
 }

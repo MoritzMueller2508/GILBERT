@@ -2,8 +2,6 @@ package de.gilbert.main;
 
 import de.gilbert.main.modules.*;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
 

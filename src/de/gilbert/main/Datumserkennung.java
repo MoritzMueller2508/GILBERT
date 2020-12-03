@@ -1,8 +1,10 @@
 package de.gilbert.main;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.time.*;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
+import java.time.format.SignStyle;
+import java.time.temporal.*;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -22,8 +24,11 @@ public class Datumserkennung extends Erkennungsmodul{
 		// Die Parser sind gewichtet, indem die Reihenfolge in der Liste angepasst wird
 		//  -> Der erste Parser, der ein Datum findet, entscheidet das Datum
 		for (Datumsparser parser: parser) {
-			Date date = parser.getDatumsangabeInString(anfrage);
-			if (date != null) anfrage.getParameter().put("datumsangabe", date);
+			LocalDate date = parser.getDatumsangabeInString(anfrage);
+			if (date != null) {
+				anfrage.getParameter().put("datumsangabe", date);
+				break;
+			}
 		}
 	
 	}
@@ -33,41 +38,34 @@ public class Datumserkennung extends Erkennungsmodul{
 	 */
 	private void initialisiereParser() {
 		// Tag
-		parser.add(new StringFeldDifferenzParser("vorgestern", Calendar.DATE, -2));
-		parser.add(new StringFeldDifferenzParser("gestern", Calendar.DATE, -1));
-		parser.add(new StringFeldDifferenzParser("heute", Calendar.DATE, 0));
-		parser.add(new StringFeldDifferenzParser("morgen", Calendar.DATE, 1));
-		parser.add(new StringFeldDifferenzParser("übermorgen", Calendar.DATE, 2));
+		parser.add(new StringFeldDifferenzParser("vorgestern", Period.ofDays(-2)));
+		parser.add(new StringFeldDifferenzParser("gestern", Period.ofDays(-1)));
+		parser.add(new StringFeldDifferenzParser("heute", Period.ofDays(0)));
+		parser.add(new StringFeldDifferenzParser("morgen", Period.ofDays(1)));
+		parser.add(new StringFeldDifferenzParser("übermorgen", Period.ofDays(2)));
 
 		// Woche
-		parser.add(new StringFeldDifferenzParser("vorletzte woche", Calendar.WEEK_OF_YEAR, -2));
-		parser.add(new StringFeldDifferenzParser("letzte woche", Calendar.WEEK_OF_YEAR, -1));
-		parser.add(new StringFeldDifferenzParser("diese woche", Calendar.WEEK_OF_YEAR, 0));
-		parser.add(new StringFeldDifferenzParser("nächste woche", Calendar.WEEK_OF_YEAR, 1));
-		parser.add(new StringFeldDifferenzParser("übernächste woche", Calendar.WEEK_OF_YEAR, 2));
+		parser.add(new StringFeldDifferenzParser("vorletzte woche", Period.ofWeeks(-2)));
+		parser.add(new StringFeldDifferenzParser("letzte woche", Period.ofWeeks(-1)));
+		parser.add(new StringFeldDifferenzParser("diese woche", Period.ofWeeks(0)));
+		parser.add(new StringFeldDifferenzParser("nächste woche", Period.ofWeeks(1)));
+		parser.add(new StringFeldDifferenzParser("übernächste woche", Period.ofWeeks(2)));
 
 		// Datum
-		parser.add(new PatternParser("\\d{1,2}\\.\\d{1,2}\\.\\d{4}", new SimpleDateFormat("dd.MM.yyyy"), true));
-		parser.add(new PatternParser("\\d{1,2}\\.\\d{1,2}", new SimpleDateFormat("dd.MM"), false));
-	}
+		parser.add(new PatternParser("\\d{1,2}\\.\\d{1,2}\\.(\\d{4})?",
+				new DateTimeFormatterBuilder()
+				.appendValue(ChronoField.DAY_OF_MONTH, 1, 2, SignStyle.NEVER).appendLiteral('.')
+				.appendValue(ChronoField.MONTH_OF_YEAR, 1, 2, SignStyle.NEVER).appendLiteral('.')
+				.optionalStart().appendValue(ChronoField.YEAR, 1, 4, SignStyle.NORMAL).optionalEnd()
+				.toFormatter()));
 
-	/**
-	 * Erstellt ein Calenderobjekt, dass auf den Beginn des aktuellen Tages zeigt.  
-	 * @return das erstellte Kalenderobjekt
-	 */
-	private static Calendar setupKalender() {
-		Calendar kalender = Calendar.getInstance();
-		kalender.set(Calendar.HOUR_OF_DAY, 0);
-		kalender.set(Calendar.MINUTE, 0);
-		kalender.set(Calendar.SECOND, 0);
-		return kalender;
 	}
 
 	/**
 	 * Sucht in einer Anfrage nach einem bestimmten Datumsformat
 	 */
 	private interface Datumsparser {
-		Date getDatumsangabeInString(Anfrage anfrage);
+		LocalDate getDatumsangabeInString(Anfrage anfrage);
 	}
 
 	/**
@@ -78,63 +76,59 @@ public class Datumserkennung extends Erkennungsmodul{
 	private static class StringFeldDifferenzParser implements Datumsparser {
 		private final String phrase;
 
-		private final int differenz;
-		private final int feld;
+		private final TemporalAmount differenz;
 
-		StringFeldDifferenzParser(String phrase, int feld, int differenz) {
+		StringFeldDifferenzParser(String phrase, TemporalAmount differenz) {
 			this.phrase = phrase.toLowerCase();
 			this.differenz = differenz;
-			this.feld = feld;
 		}
 
-		Calendar erzeugeDatum() {
-			Calendar kalendar = setupKalender();
-			kalendar.add(feld, differenz);
-
-			return kalendar;
+		LocalDate erzeugeDatum() {
+			return LocalDate.now().plus(differenz);
 		}
 
 		@Override
-		public Date getDatumsangabeInString(Anfrage anfrage) {
-			return anfrage.getAnfrage().contains(phrase)? erzeugeDatum().getTime(): null;
+		public LocalDate getDatumsangabeInString(Anfrage anfrage) {
+			return anfrage.getAnfrage().contains(phrase)? erzeugeDatum(): null;
 		}
 	}
 
 	private static class PatternParser implements Datumsparser {
 		private Pattern pattern;
-		private DateFormat parser;
-		private boolean includesYear;
+		private DateTimeFormatter parser;
 
-		private PatternParser(String pattern, DateFormat parser, boolean includesYear) {
+		private PatternParser(String pattern, DateTimeFormatter parser) {
 			this.pattern = Pattern.compile(pattern);
 			this.parser = parser;
-			this.includesYear = includesYear;
 		}
 
 
 		@Override
-		public Date getDatumsangabeInString(Anfrage anfrage) {
+		public LocalDate getDatumsangabeInString(Anfrage anfrage) {
 			Matcher matcher = pattern.matcher(anfrage.getAnfrage());
 
 			while (matcher.find()) {
 				try {
-					Date date = parser.parse(matcher.group());
+					LocalDate now = LocalDate.now();
+					TemporalAccessor result = parser.parse(matcher.group());
 
-					// wenn Tag/Monat ohne Jahr angegeben ist, wird erst dieses Jahr gesetzt
-					// wenn das Datum dann in der Vergangenheit liegt,
-					// ist wahrscheinlich der gleiche Tag nächstes Jahr gemeint
-					if (!includesYear) {
-						Calendar calendar = Calendar.getInstance();
-						calendar.setTime(date);
-						calendar.set(Calendar.YEAR, setupKalender().get(Calendar.YEAR));
+					int dayOfMonth, month, year;
 
-						if (calendar.before(setupKalender())) calendar.add(Calendar.YEAR, 1);
+					// wenn ein benötigtes Feld nicht gesetzt ist, setzte es auf den entsprechenden Wert des heutigen Tages
+					//     besonders das Feld ChronoField.YEAR kann oft nicht gesetzt sein
+					if (result.isSupported(ChronoField.DAY_OF_MONTH)) dayOfMonth = result.get(ChronoField.DAY_OF_MONTH);
+					else dayOfMonth = now.getDayOfMonth();
+					if (result.isSupported(ChronoField.MONTH_OF_YEAR)) month = result.get(ChronoField.MONTH_OF_YEAR);
+					else month = now.getMonthValue();
+					if (result.isSupported(ChronoField.YEAR)) year = result.get(ChronoField.YEAR);
+					else year = now.getYear();
 
-						date = calendar.getTime();
-					}
-
-					return date;
-				} catch (ParseException ignored) {}
+					return LocalDate.of(year, month, dayOfMonth);
+				} catch (DateTimeException ignored) {
+					// Das pattern wird gefunden, ist aber kein valides Datum
+					//    z.B. (pattern="\d{1,2}\.\d{1,2}\.", parser="dd.MM.") -> "50.5." passt zum pattern,
+					//          ist aber kein echtes Datum, weil kein Monat 50 Tage hat
+				}
 			}
 
 			return null;

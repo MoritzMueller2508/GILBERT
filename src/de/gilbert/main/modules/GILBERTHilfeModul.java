@@ -1,8 +1,6 @@
 package de.gilbert.main.modules;
 
-import de.gilbert.main.Anfrage;
 import de.gilbert.main.Textmodul;
-import de.gilbert.main.Verweismodul;
 
 /**
  * @author Zusibell Jimenez

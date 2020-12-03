@@ -26,17 +26,17 @@ public class Kommandozeile extends Benutzerschnittstelle {
 		System.out.println("Anmeldung");
 		System.out.println("--------------------------------------");
 		System.out.println(	  " - Du kannst dich mit deinem Benutzernamen anmelden" +
-							"\n - Einen neuen Benutzer anlegen, indem du einen neuen Benutzernamen eingibts" +
+							"\n - Einen neuen Benutzer anlegen, indem du einen neuen Benutzernamen eingibst" +
 							"\n - Die Anmeldung überspringen in dem du Enter drückst\n\n" );
-		System.out.println("Benutzername : ");
+		System.out.print("Benutzername : ");
 		String benutzername = scanner.nextLine();
 
 		if(benutzername.length() != 0) {
 			if(!benutzer.nutzerVorhanden(benutzername)) {
 				do {
-					System.out.println("Kursbezeichung : ");
+					System.out.print("Kursbezeichung : ");
 					String kursbezeichung  = scanner.nextLine();
-					kursbezeichung = kursbezeichung.replaceAll(" ", "").toUpperCase();
+					kursbezeichung = kursbezeichung.replaceAll("\\s+", "").toUpperCase();
 
 					if(kursbezeichung.length() != 0 && Util.kursbezeichungInDatei(kursbezeichung)) {
 							benutzer.nutzerHinzufuegen(benutzername, kursbezeichung);

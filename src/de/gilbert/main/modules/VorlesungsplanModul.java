@@ -8,7 +8,9 @@ import de.gilbert.main.po.Benutzer;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.ZoneOffset;
 import java.util.Map;
 
 /**
@@ -34,7 +36,6 @@ public class VorlesungsplanModul extends Verweismodul {
         Map<String, String> kursdaten;
         try {
             kursdaten = Util.csvDataHashMap("Kurszuweisungen");
-            String kursbezeichnung;
             boolean beantwortet = false;
             Map<String, Object> parameter = anfrage.getParameter();
             Benutzer benutzer = (Benutzer) parameter.get("benutzer");
@@ -87,8 +88,10 @@ public class VorlesungsplanModul extends Verweismodul {
     private URL generiereNeueUrl(String kurs, Anfrage anfrage) {
         String neueUrl = "/index.php?action=view&gid=3067001&uid=" + kurs;
 
-        if (anfrage.getParameter().containsKey("datumsangabe")) {
-            neueUrl += "&date=" + ((Date) anfrage.getParameter().get("datumsangabe")).getTime() / 1000;
+        Object date = anfrage.getParameter().get("datumsangabe");
+        if (date != null) {
+            if (date instanceof LocalDate)
+                neueUrl += "&date=" + ((LocalDate) date).toEpochSecond(LocalTime.MIDNIGHT, ZoneOffset.UTC);
         }
 
         try {

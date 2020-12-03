@@ -50,7 +50,7 @@ public abstract class Util {
     }
 
     /**
-     * Überprüft ob übergebene Kursbezeichnung in der Kursbezeichnungen.csv Datei exisitert.
+     * Überprüft ob übergebene Kursbezeichnung in der Kursbezeichnungen.csv Datei existiert.
      * @param kursbezeichung die zu überprüfende Kursbezeichung
      * @return true, wenn die Kursbezeichnung in der Datei gefunden wurde, sonst false
      */

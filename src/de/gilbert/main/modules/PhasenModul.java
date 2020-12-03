@@ -1,17 +1,14 @@
 package de.gilbert.main.modules;
 
 import de.gilbert.main.Anfrage;
-import de.gilbert.main.Kommandozeilenanfrage;
 import de.gilbert.main.Modul;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.time.format.FormatStyle;
 import java.time.temporal.TemporalQueries;
 import java.util.*;
 import java.util.function.Function;
@@ -35,7 +32,7 @@ public class PhasenModul extends Modul {
         boolean praxis = anfrage.getAnfrage().toLowerCase().contains("praxis");
 
         Phase[] phasen = anfrage.frageAuswahl("In welchem Jahrgang bist du?", praxis? phasenPraxis: phasenTheorie);
-        if (phasen != null) anfrage.schreibeAntwort(String.format("Die %sphasen sind:%n%s", praxis? "Praxis": "Theorie", getString(phasen)));
+        if (phasen != null) anfrage.schreibeAntwort(String.format("Die %s sind:%n%s", praxis? "Praxisphasen": "Theoriephasen", getString(phasen)));
     }
 
     public String getString(Phase[] phasen) {
@@ -51,7 +48,7 @@ public class PhasenModul extends Modul {
     /**
      * Liest eine csv Datei aus und speichert die Daten in einer Map.
      * @return die mit den Daten aus der CSV gefüllte Map
-     * @throws IOException, sollte keine Datei mit dem angegebenen Namen exisitieren.
+     * @throws IOException, sollte keine Datei mit dem angegebenen Namen existieren.
      */
     private Map<String, Phase[]> csvDataTheorie() throws IOException {
         return csvData("Phasen_Theorie.csv");
@@ -60,7 +57,7 @@ public class PhasenModul extends Modul {
     /**
      * Liest eine csv Datei aus und speichert die Daten in einer Map.
      * @return die mit den Daten aus der CSV gefüllte Map
-     * @throws IOException, sollte keine Datei mit dem angegebenen Namen exisitieren.
+     * @throws IOException, sollte keine Datei mit dem angegebenen Namen existieren.
      */
     private Map<String, Phase[]> csvDataPraxis() throws IOException {
         return csvData("Phasen_Praxis.csv");

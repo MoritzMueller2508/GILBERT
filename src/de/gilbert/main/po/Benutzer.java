@@ -21,12 +21,12 @@ public class Benutzer {
     }
 
     /**
-     * Überprüft ob der Nutzer mit dem angegebenen Benutzernamen bereits in der Gilbert_Benutzer.csv exisitert.
+     * Überprüft ob der Nutzer mit dem angegebenen Benutzernamen bereits in der Gilbert_Benutzer.csv existiert.
      * @param benutzername : der eingegebene Benutzername
      * @return true, wenn der Nutzername in der Gilbert_Benutzer.csv Datei vorhanden ist, sonst false
      */
     public boolean nutzerVorhanden(String benutzername) {
-        if(benutzernamen.containsKey(benutzername.toLowerCase())) {
+        if(benutzernamen.containsKey(benutzername)) {
             this.benutzername = benutzername;
             this.kursbezeichnung = benutzernamen.get(benutzername);
             return true;
@@ -55,7 +55,10 @@ public class Benutzer {
             csvWriter.append("Benutzername; Kursbezeichung\n");
 
             for(String schluessel : benutzernamen.keySet()) {
-                csvWriter.append(schluessel + ";" + benutzernamen.get(schluessel) + "\n");
+                csvWriter.append(schluessel)
+                         .append(";")
+                         .append(benutzernamen.get(schluessel))
+                         .append("\n");
             }
             csvWriter.flush();
             csvWriter.close();

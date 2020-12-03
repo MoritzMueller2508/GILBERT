@@ -18,9 +18,5 @@ public abstract class Textmodul extends Modul{
 	public String getText() {
 		return text;
 	}
-	
-	@Override
-	public String[] getSchluessel() {
-		return super.getSchluessel();
-	}
+
 }
