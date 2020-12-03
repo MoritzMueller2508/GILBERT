@@ -41,7 +41,6 @@ public class Benutzer {
      */
     public void nutzerHinzufuegen(String benutzername, String kursbezeichnung) {
         this.benutzername = benutzername;
-        kursbezeichnung = kursbezeichnung.replaceAll(" ", "").toUpperCase();
         this.kursbezeichnung = kursbezeichnung;
         this.benutzernamen.put(benutzername, kursbezeichnung);
         serialisiereBenutzer();

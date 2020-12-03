@@ -49,4 +49,18 @@ public abstract class Util {
         }
     }
 
+    /**
+     * Überprüft ob übergebene Kursbezeichnung in der Kursbezeichnungen.csv Datei exisitert.
+     * @param kursbezeichung die zu überprüfende Kursbezeichung
+     * @return true, wenn die Kursbezeichnung in der Datei gefunden wurde, sonst false
+     */
+    public static boolean kursbezeichungInDatei(String kursbezeichung) {
+        try {
+            Map<String, String> kursdaten = csvDataHashMap("Kurszuweisungen");
+            return kursdaten.containsKey(kursbezeichung);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

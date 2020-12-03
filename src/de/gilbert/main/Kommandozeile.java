@@ -30,16 +30,19 @@ public class Kommandozeile extends Benutzerschnittstelle {
 							"\n - Die Anmeldung überspringen in dem du Enter drückst\n\n" );
 		System.out.println("Benutzername : ");
 		String benutzername = scanner.nextLine();
+
 		if(benutzername.length() != 0) {
 			if(!benutzer.nutzerVorhanden(benutzername)) {
 				do {
 					System.out.println("Kursbezeichung : ");
 					String kursbezeichung  = scanner.nextLine();
-					if(kursbezeichung.length() != 0) {
+					kursbezeichung = kursbezeichung.replaceAll(" ", "").toUpperCase();
+
+					if(kursbezeichung.length() != 0 && Util.kursbezeichungInDatei(kursbezeichung)) {
 							benutzer.nutzerHinzufuegen(benutzername, kursbezeichung);
 							break;
 					}
-					System.out.println("Das hat nicht geklappt. Versuche es erneut.");
+					System.out.println("Das hat nicht geklappt. Versuche es mit einer validen Kursbezeichung erneut.");
 				} while(true);
 			}
 		}
