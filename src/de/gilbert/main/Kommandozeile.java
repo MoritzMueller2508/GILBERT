@@ -27,7 +27,8 @@ public class Kommandozeile extends Benutzerschnittstelle {
 		System.out.println("--------------------------------------");
 		System.out.println(	  " - Du kannst dich mit deinem Benutzernamen anmelden" +
 							"\n - Einen neuen Benutzer anlegen, indem du einen neuen Benutzernamen eingibst" +
-							"\n - Die Anmeldung überspringen in dem du Enter drückst\n\n" );
+							"\n - Die Anmeldung überspringen in dem du Enter drückst\n" +
+							"\n - Bei Nicht-Überspringen der Anmeldung wird der Name und die Kursbezeichnung gespeichert \n\n");
 		System.out.print("Benutzername : ");
 		String benutzername = scanner.nextLine();
 
@@ -44,6 +45,24 @@ public class Kommandozeile extends Benutzerschnittstelle {
 					}
 					System.out.println("Das hat nicht geklappt. Versuche es mit einer validen Kursbezeichung erneut.");
 				} while(true);
+			}else{
+				System.out.println(" \nHallo " + benutzername + "\n" +
+						"Du bist in diesem Kurs: " + benutzer.getKursbezeichnung());
+				Kommandozeilenanfrage bestaetigung = new Kommandozeilenanfrage(scanner, "");
+				if(!bestaetigung.frageBestaetigung("Ist das noch korrekt?"))
+				{
+					do {
+						System.out.print("Kursbezeichung : ");
+						String kursbezeichung  = scanner.nextLine();
+						kursbezeichung = kursbezeichung.replaceAll("\\s+", "").toUpperCase();
+
+						if(kursbezeichung.length() != 0 && Util.kursbezeichungInDatei(kursbezeichung)) {
+							benutzer.nutzerHinzufuegen(benutzername, kursbezeichung);
+							break;
+						}
+						System.out.println("Das hat nicht geklappt. Versuche es mit einer validen Kursbezeichung erneut.");
+					} while(true);
+				}
 			}
 		}
 

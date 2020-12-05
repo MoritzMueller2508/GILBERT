@@ -26,7 +26,7 @@ public class Benutzer {
      * @return true, wenn der Nutzername in der Gilbert_Benutzer.csv Datei vorhanden ist, sonst false
      */
     public boolean nutzerVorhanden(String benutzername) {
-        if(benutzernamen.containsKey(benutzername)) {
+        if(benutzernamen.containsKey(benutzername.toLowerCase())) {
             this.benutzername = benutzername;
             this.kursbezeichnung = benutzernamen.get(benutzername);
             return true;
@@ -40,9 +40,9 @@ public class Benutzer {
      * @param kursbezeichnung die Kursbezeichung des neuen Nutzers.
      */
     public void nutzerHinzufuegen(String benutzername, String kursbezeichnung) {
-        this.benutzername = benutzername;
+        this.benutzername = benutzername.replaceAll("\\s+", " ");
         this.kursbezeichnung = kursbezeichnung;
-        this.benutzernamen.put(benutzername, kursbezeichnung);
+        this.benutzernamen.put(benutzername.toLowerCase(), kursbezeichnung);
         serialisiereBenutzer();
     }
 

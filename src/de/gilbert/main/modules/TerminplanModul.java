@@ -12,7 +12,7 @@ public class TerminplanModul extends Verweismodul {
 
     static{
         try {
-            TERMINPLAN_URL = new URL("https://vorlesungsplan.dhbw-mannheim.de/index.php");
+            TERMINPLAN_URL = new URL("https://www.mannheim.dhbw.de/fileadmin/user_upload/Studienangebot/Technik/Informatik/Angewandte-Informatik/Termine-2019-20-SG-AI-FAKT-DHBW-MA-202002.pdf");
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
