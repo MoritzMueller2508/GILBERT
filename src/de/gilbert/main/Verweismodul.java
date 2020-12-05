@@ -5,8 +5,8 @@ import java.net.URL;
  * @author Lukas Rothenbach
  */
 public abstract class Verweismodul extends Modul {
-	private URL verweis;
-	private String platzhalter;
+	private final URL verweis;
+	private final String platzhalter;
 	
 	public Verweismodul(String[] schluessel, URL link, String platzhalter) {
 		super(schluessel);
@@ -15,7 +15,7 @@ public abstract class Verweismodul extends Modul {
 	}
 
 	public void beantworteAnfrage(Anfrage anfrage) {
-		anfrage.schreibeVerweis(verweis, platzhalter);
+		anfrage.schreibeVerweis(getVerweis(), getPlatzhalter());
 	}
 	
 	public URL getVerweis() {

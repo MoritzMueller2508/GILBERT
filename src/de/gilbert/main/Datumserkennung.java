@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
  */
 public class Datumserkennung extends Erkennungsmodul{
 
-	private List<Datumsparser> parser = new ArrayList<>();
+	private final List<Datumsparser> parser = new ArrayList<>();
 
 	public Datumserkennung() {
 		initialisiereParser();
@@ -94,8 +94,8 @@ public class Datumserkennung extends Erkennungsmodul{
 	}
 
 	private static class PatternParser implements Datumsparser {
-		private Pattern pattern;
-		private DateTimeFormatter parser;
+		private final Pattern pattern;
+		private final DateTimeFormatter parser;
 
 		private PatternParser(String pattern, DateTimeFormatter parser) {
 			this.pattern = Pattern.compile(pattern);

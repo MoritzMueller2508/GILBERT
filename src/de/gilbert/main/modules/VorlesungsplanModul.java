@@ -39,7 +39,7 @@ public class VorlesungsplanModul extends Verweismodul {
             boolean beantwortet = false;
             Map<String, Object> parameter = anfrage.getParameter();
             Benutzer benutzer = (Benutzer) parameter.get("benutzer");
-            String kursbezeichung = kursbezeichnungInAnfrage(kursdaten, anfrage);
+            String kursbezeichnung = kursbezeichnungInAnfrage(kursdaten, anfrage);
 
             //Kurszuweisung durch angemeldeten Benutzer
             if (benutzer != null) {
@@ -47,8 +47,8 @@ public class VorlesungsplanModul extends Verweismodul {
                 beantwortet = true;
             }
             //Kurszuweisung in Anfrage
-            else if (kursbezeichung != null) {
-                anfrage.schreibeVerweis(generiereNeueUrl(kursdaten.get(kursbezeichung), anfrage), "Vorlesungsplan");
+            else if (kursbezeichnung != null) {
+                anfrage.schreibeVerweis(generiereNeueUrl(kursdaten.get(kursbezeichnung), anfrage), "Vorlesungsplan");
                 beantwortet = true;
 
             }

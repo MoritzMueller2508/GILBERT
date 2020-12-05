@@ -7,9 +7,9 @@ import java.util.Map;
  * @author Lukas Rothenbach
  */
 public abstract class Anfrage {
-	private String anfrage;
-	private String[] woerter;
-	private Map<String, Object> parameter;
+	private final String anfrage;
+	private final String[] woerter;
+	private final Map<String, Object> parameter;
 	
 	public Anfrage(String anfrage) {
 		this.anfrage = anfrage;
@@ -25,11 +25,8 @@ public abstract class Anfrage {
 	public abstract void schreibeVerweis(URL link, String platzhalter);
 	
 	public abstract <T> T frageAuswahl(String frage, Map<String, T> auswahl);
-	
-	public abstract Object frageWert(String frage);
-	
+
 	public abstract boolean frageBestaetigung(String frage);
-	
 	
 	public String getAnfrage() {
 		return anfrage;

@@ -6,7 +6,7 @@ import java.util.Objects;
  * @author Lukas Rothenbach
  */
 public abstract class Modul {
-	private String[] schluessel;
+	private final String[] schluessel;
 
 	public Modul(String[] schluessel) {
 		this.schluessel = Objects.requireNonNullElseGet(schluessel, () -> new String[0]);

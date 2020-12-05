@@ -6,7 +6,7 @@ import de.gilbert.main.Textmodul;
  * @author Zusibell Jimenez
  */
 public class GILBERTHilfeModul extends Textmodul {
-    private static String ANLEITUNG = "Hallo, ich bin GILBERT.\n" +
+    private static final String ANLEITUNG = "Hallo, ich bin GILBERT.\n" +
             "Ich bin hier um dir mit deiner Anfrage bezüglich der DHBW Mannheim zu helfen.\n" +
             "Du findest irgendwelche Information oder einen wichtigen Link nicht? Keine Sorge, ich bin hier.\n" +
             "Ich besitze Informationen über folgende Themen:\n" +

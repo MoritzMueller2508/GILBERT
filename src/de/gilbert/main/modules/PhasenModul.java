@@ -17,8 +17,8 @@ import java.util.function.Function;
  */
 public class PhasenModul extends Modul {
 
-    private Map<String, Phase[]> phasenTheorie;
-    private Map<String, Phase[]> phasenPraxis;
+    private final Map<String, Phase[]> phasenTheorie;
+    private final Map<String, Phase[]> phasenPraxis;
 
     public PhasenModul(String[] schluessel) throws IOException {
         super(schluessel);

@@ -4,7 +4,7 @@ package de.gilbert.main;
  * @author Lukas Rothenbach
  */
 public abstract class Textmodul extends Modul{
-	private String text;
+	private final String text;
 	
 	public Textmodul(String[] schluessel, String text) {
 		super(schluessel);
@@ -12,7 +12,7 @@ public abstract class Textmodul extends Modul{
 	}
 
 	public void beantworteAnfrage(Anfrage anfrage) {
-		anfrage.schreibeAntwort(text);
+		anfrage.schreibeAntwort(getText());
 	}
 	
 	public String getText() {
