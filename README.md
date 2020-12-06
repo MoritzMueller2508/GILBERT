@@ -12,9 +12,9 @@
 ###*Disclaimer*
 
 Die Gilbert GbR ist nicht verantwortlich für alle dargestellten Informationen und übernimmt keine Haftung  
-für eventuelle falsche oder alte Informationen.  
+für eventuell falsche oder alte Informationen.  
 
-Alle Informationen werden den Seiten der [DHBW Mannheim](https://www.mannheim.dhbw.de/startseite)
+Alle Informationen werden den Seiten der [DHBW Mannheim](https://www.mannheim.dhbw.de/startseite) entnommen.
 *GILBERT* sammelt lediglich alle Informationen und stellt diese gesammelt und leicht verständlich dar.
 
 ---
