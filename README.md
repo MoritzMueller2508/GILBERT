@@ -9,7 +9,7 @@
 4. Entwickler
 
 ---
-###*Disclaimer*
+### *Disclaimer*
 
 Die Gilbert GbR ist nicht verantwortlich für alle dargestellten Informationen und übernimmt keine Haftung  
 für eventuell falsche oder alte Informationen.  
@@ -36,14 +36,14 @@ Durch den Chatbot werden das Sekretariat und die Studierenden entlastet.
 Das Sekretariat muss weniger auf Fragen von Studierenden eingehen und die Studierenden verbringen weniger Zeit mit der Dokumentensuche.
 
 ---
-##Nutzerausrichtung
+## Nutzerausrichtung
 
 Die Zielgruppe des Chatbots sind die Studierenden der DHBW Mannheim, welche schnell Informationen bezüglich der DHBW und deren Vorgänge benötigen. 
 Zu Beginn werden die Studiengänge AI, CS und IT der Fakultät Technik im Fokus der Anwendung liegen. 
 Der Chatbot kann im generellen Alltag eingesetzt werden, um schnell Abhilfe zur Informationsbeschaffung zu bieten.
 
 ---
-##Funktionen
+## Funktionen
 
 *GILBERT* kann Informationen über die folgenden Themenbereiche geben:
 - Moodle
