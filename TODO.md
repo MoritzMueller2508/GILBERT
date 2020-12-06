@@ -1,10 +1,6 @@
 * Wörter / Input:
-  * `F-INPUT-40` - Anzahl Wörter -- SOLL: 80+, IST: 66, DIF: 14+
   * `Readme` - Create Readme
 
-
-Maßnahmen: 
-* Finden weiterer Wörter
 
 -------------------------------------------------------------------------------------
 

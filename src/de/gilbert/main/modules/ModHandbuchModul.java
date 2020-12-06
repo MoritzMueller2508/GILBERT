@@ -1,5 +1,6 @@
 package de.gilbert.main.modules;
 
+import de.gilbert.main.Kommandozeile;
 import de.gilbert.main.Verweismodul;
 
 import java.net.MalformedURLException;
