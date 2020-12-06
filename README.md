@@ -58,12 +58,17 @@ Der Chatbot kann im generellen Alltag eingesetzt werden, um schnell Abhilfe zur 
 - DHBW-FAQ
 - Hilfe für die Nutzung von *GILBERT*
 
-Dabei reagiert *GILBERT* auf Fragen in normaler deutscher Sprache.
+Dabei reagiert *GILBERT* auf einfache Fragen in normaler deutscher Sprache.
+Im Nachfolgenden einige Beispiele:
+
+- "Welche Vorlesungen habe ich heute?"
+- "Was gibt es heute zu essen?"
+- "Wie sind die Leitlinien für die Praxisarbeit?"
 
 ---
 
 ## Entwickler
 
-*GILBERT* wurde von den Mitgliedern der Gilbert GbR entwickelt, welche Studenten des Studiengangs TINF19AI1 sind. 
+*GILBERT* wurde von den Mitgliedern der Gilbert GbR, welche Studenten des Studiengangs TINF19AI1 sind, im Rahmen der Vorlesung "Grundlagen des Software-Engineerings" unter der Aufsicht von Herrn Prof. Dr. Eckard Kruse entwickelt. 
 
 Bei Fragen und Anregungen senden Sie eine Mail an: s191505@student.dhbw-mannheim.de
