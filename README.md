@@ -53,5 +53,17 @@ Der Chatbot kann im generellen Alltag eingesetzt werden, um schnell Abhilfe zur 
 - Prüfungen
 - Termine
 - Module 
+- Praxisarbeit-Leitlinen
+- Theorie und Praxisphasen
+- DHBW-FAQ
+- Hilfe für die Nutzung von *GILBERT*
 
-Eventuell Falsche Angaben basieren auf den Verschuldungen der DHBW Mannheim - Sandra Klohr
+Dabei reagiert *GILBERT* auf Fragen in normaler deutscher Sprache.
+
+---
+
+## Entwickler
+
+*GILBERT* wurde von den Mitgliedern der Gilbert GbR entwickelt, welche Studenten des Studiengangs TINF19AI1 sind. 
+
+Bei Fragen und Anregungen senden Sie eine Mail an: s191505@student.dhbw-mannheim.de
