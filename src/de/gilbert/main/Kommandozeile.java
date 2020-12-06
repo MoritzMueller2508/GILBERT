@@ -118,7 +118,7 @@ public class Kommandozeile extends Benutzerschnittstelle {
 		String antwort; T ergebnis;
 		do {
 			System.out.println(frage);
-			for (String keyElement : auswahl.keySet()) System.out.println(keyElement);
+			for (String keyElement : auswahl.keySet()) System.out.println(" - " + keyElement);
 			antwort = scanner.nextLine();
 			ergebnis = auswahl.get(antwort);
 
