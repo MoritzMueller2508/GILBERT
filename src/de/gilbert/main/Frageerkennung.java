@@ -2,6 +2,8 @@ package de.gilbert.main;
 
 
 /**
+ * Ein Erkennungsmodul, das versucht Fragewoerter in einer Anfrage zu finden
+ *
  * @author Lukas Rothenbach
  */
 public class Frageerkennung extends Erkennungsmodul {

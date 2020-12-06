@@ -6,11 +6,16 @@ import java.io.IOException;
 import java.util.*;
 
 /**
+ * Untersucht Anfragen mit Hilfe von {@link Erkennungsmodul Erkennungsmodulen}
+ * und versucht ein passendes {@link Modul} zu finden, das die Anfrage dann beantwortet.
+ *
  * @author Jonas Knebel, Lukas Rothenbach und Yannis Eigenbrodt
  */
 public class Spracherkennung {
-	
+
+	/** Erkennungsmodule, die Anfragen vorbearbeiten */
 	private List<Erkennungsmodul> erkennungsmodule;
+	/** Module, die Anfragen beantworten können und über Schluessel gefunden werden koennen */
 	private List<Modul> module;
 
 	/**
@@ -19,17 +24,17 @@ public class Spracherkennung {
 	 */
 	private final Modul fallbackModul = new Textmodul(new String[0], "Ich konnte die Frage leider nicht verstehen.") {	};
 
+	/** Erzeugt eine Spracherkennung und importiert Module */
 	public Spracherkennung() throws IOException {
 		importiereModul();
 	}
-
 
 	/**
 	 * Läd die CSV Datei und ordnet die Daten den Modulen zu
 	 */
 	public Map<Integer, String[]> ladeSchluessel() throws IOException {
 
-		ArrayList<String[]> csvData = Util.csvDataArrayList("Gilbert_Wortschatz");
+		List<String[]> csvData = Util.csvDataList("Gilbert_Wortschatz");
 		Map<Integer, List<String>> schluessel = new HashMap<>();
 
 		for (String[] data: csvData) {
@@ -44,14 +49,22 @@ public class Spracherkennung {
 		return schluesselArrayMap;
 	}
 
+	/**
+	 * Sucht in der gegebenen Map nach dem gegebenen id.
+	 * Wenn die id nicht gefunden wird, wird ein leeres Array zurückgegeben.
+	 */
 	private String[] getOrDefault(Map<Integer, String[]> schluessel, int modulId) {
 		return Objects.requireNonNullElseGet(schluessel.get(modulId), () -> new String[0]);
 	}
 
+	/**
+	 * Importiert alle Module und Erkennungsmodule
+	 */
 	public void importiereModul() throws IOException {
 		module = new ArrayList<>();
 		erkennungsmodule = new ArrayList<>();
 
+		// lade Module
 		Map<Integer, String[]> schluessel = ladeSchluessel();
 		module.add(new MoodleModul(getOrDefault(schluessel, 1)));          // Modul  1 - Moodle / Blackboard
 		module.add(new NotenModul(getOrDefault(schluessel, 2)));           // Modul  2 - Dualis / Noten
@@ -65,20 +78,25 @@ public class Spracherkennung {
 		module.add(new DHBWFAQModul(getOrDefault(schluessel, 10)));        // Modul 10 - FAQ
 		module.add(new PhasenModul(getOrDefault(schluessel, 11)));         // Modul 11 - Theorie-/Praxisphasen
 
+		// lade Erkennungsmodule
 		erkennungsmodule.add(new Frageerkennung());
 		erkennungsmodule.add(new Datumserkennung());
 	}
-	
+
+	/**
+	 * Bearbeitet die Anfrage:
+	 * Laesst die Erkennungsmodule die Anfrage vorbereiten, sucht ein passendes Modul
+	 * und laesst dieses die Anfrage beantworten.
+	 */
 	public void bearbeiteAnfrage(Anfrage anfrage) {
 		// rufe die Erkennungsmodule für eine allgemeine vorbereitende Untersuchung der Anfrage auf
 		rufeErkennungsModuleAuf(anfrage);
 
-		// suche das passende Modul oder benutze das Fallbackmodul, wenn kein Modul ausgewählt werden konnte
-		Modul modul = findeModul(anfrage);
-		(modul != null? modul: fallbackModul).beantworteAnfrage(anfrage);
+		// suche das passende Modul
+		findeModul(anfrage).beantworteAnfrage(anfrage);
 	}
 
-
+	/** ruft alle Erkennungsmodule mit der gegebenen Anfrage auf */
 	private void rufeErkennungsModuleAuf(Anfrage anfrage) {
 		// rufe jedes Erkennungsmodul für die gegebene Anfrage auf
 		erkennungsmodule.forEach(modul -> modul.untersucheAnfrage(anfrage));
@@ -150,56 +168,27 @@ public class Spracherkennung {
 					maxModule.add(modul);
 			}
 		}
-
+		// es ist eindeutig
 		if (maxModule.size() == 1) return maxModule.get(0);
+		// es ist zweideutig -> lass den Benutzer auswaehlen
 		if (maxModule.size() == 2)
-			anfrage.frageAuswahl("Was meinst du?", Map.of(
-					maxModule.get(0).toString(), maxModule.get(0),
-					maxModule.get(1).toString(), maxModule.get(1)));
+			return anfrage.frageAuswahl("Was meinst du?", Map.of(
+					maxModule.get(0).getName(), maxModule.get(0),
+					maxModule.get(1).getName(), maxModule.get(1)));
 
-		return null;
-	}
-
-	private boolean sindWoerterWahrscheinlichGleich(String a, String b) {
-		// maximal zwei fehler => zwei falsche Buchstaben. z.B. auch Buchstabendreher
-		return berechneLevenshteinAbstand(a, b) <= 2;
+		// es ist unverstaendlich -> fallback zum fallbackModul
+		return fallbackModul;
 	}
 
 	/**
-	 * Um den Levenshtein-Abstand zweier Strings zu berechnen wird der Wagner–Fischer Algorithmus verwendet.
+	 * Testet, ob zwei Woerter wahrscheinlich gleich sind.
+	 * Das ist der Fall, wenn sie sich an maximal zwei Stellen unterscheiden.
 	 *
-	 * @param a das erste Wort
-	 * @param b das zweite Wort
-	 * @return den Levenshtein-Abstand der Parameter
+	 * @see Util#berechneLevenshteinAbstand(String, String)
 	 */
-	private int berechneLevenshteinAbstand(String a, String b) {
-		if (a.isEmpty()) return b.length();
-		if (b.isEmpty()) return a.length();
-
-		int[][] matrix = new int[a.length() + 1][b.length() + 1];
-
-		for (int i = 0; i < matrix.length; i++) matrix[i][0] = i;
-		for (int j = 0; j < matrix[0].length; j++) matrix[0][j] = j;
-
-		for (int i = 0; i + 1 < matrix.length; i++) {
-			for (int j = 0; j + 1 < matrix[i].length; j++) {
-				matrix[i + 1][j + 1] = min(
-					matrix[i][j] + (a.charAt(i) == b.charAt(j)? 0: 1),
-					matrix[i][j+1] + 1,
-					matrix[i+1][j] + 1
-				);
-			}
-		}
-
-		return matrix[a.length()][b.length()];
-	}
-
-	private int min(int... a) {
-		if (a.length == 0) throw new IllegalArgumentException();
-
-		int min = a[0];
-		for (int i = 1; i < a.length; i++) if (a[i] < min) min = a[i];
-		return min;
+	private boolean sindWoerterWahrscheinlichGleich(String a, String b) {
+		// maximal zwei fehler => zwei falsche Buchstaben. z.B. auch Buchstabendreher
+		return Util.berechneLevenshteinAbstand(a, b) <= 2;
 	}
 
 	public List<Erkennungsmodul> getErkennungsmodule() {
