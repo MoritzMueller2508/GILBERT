@@ -1,65 +1,102 @@
 package de.gilbert.main;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import de.gilbert.main.modules.*;
 
+import java.io.IOException;
+import java.util.*;
+
+/**
+ * Untersucht Anfragen mit Hilfe von {@link Erkennungsmodul Erkennungsmodulen}
+ * und versucht ein passendes {@link Modul} zu finden, das die Anfrage dann beantwortet.
+ *
+ * @author Jonas Knebel, Lukas Rothenbach und Yannis Eigenbrodt
+ */
 public class Spracherkennung {
-	
+
+	/** Erkennungsmodule, die Anfragen vorbearbeiten */
 	private List<Erkennungsmodul> erkennungsmodule;
+	/** Module, die Anfragen beantworten können und über Schluessel gefunden werden koennen */
 	private List<Modul> module;
 
 	/**
 	 * Wird verwendet, wenn kein anderes Modul ausgewählt werden kann, da kein Modul
 	 * mehr passende Schlüsselwörter hat, als ein anderes.
 	 */
-	private final Modul fallbackModul = new Textmodul("Ich konnte die Frage leider nicht verstehen.") {	};
+	private final Modul fallbackModul = new Textmodul(new String[0], "Ich konnte die Frage leider nicht verstehen.") {	};
 
-	public Spracherkennung() {
-		// TODO: implement
+	/** Erzeugt eine Spracherkennung und importiert Module */
+	public Spracherkennung() throws IOException {
 		importiereModul();
 	}
 
 	/**
-	 * Liest die Daten aus der CSV Datei aus und speichert sie als ArrayList
+	 * Läd die CSV Datei und ordnet die Daten den Modulen zu
 	 */
-	public ArrayList<String[]> csvData() throws IOException{
-		String csvFile = "Gilbert_Wortschatz.csv";
-		String nextLine;
-		String cvsSplitBy = ";";
-		ArrayList<String[]> gilbertData = new ArrayList<>();
+	public Map<Integer, String[]> ladeSchluessel() throws IOException {
 
-		try (BufferedReader bufferedReader = new BufferedReader(new FileReader(csvFile))) {
-			bufferedReader.readLine();
-			while ((nextLine = bufferedReader.readLine()) != null) {
-				if(nextLine.split(cvsSplitBy).length>=2)
-					gilbertData.add(nextLine.split(cvsSplitBy));
-			}
-			return gilbertData;
+		List<String[]> csvData = Util.csvDataList("Gilbert_Wortschatz");
+		Map<Integer, List<String>> schluessel = new HashMap<>();
+
+		for (String[] data: csvData) {
+			try {
+				int modulID = Integer.parseInt(data[1]);
+				schluessel.computeIfAbsent(modulID, i -> new ArrayList<>()).add(data[0]);
+			} catch (NumberFormatException ignored) {}
 		}
+
+		Map<Integer, String[]> schluesselArrayMap = new HashMap<>();
+		schluessel.forEach((i, s) -> schluesselArrayMap.put(i, s.toArray(new String[0])));
+		return schluesselArrayMap;
 	}
 
-	//TODO: implement
-	public void importiereModul() {
-		// Testcode: keine Erkennungsmodule oder Module werden geladen,
-		//           es werden aber schon die Listen angelegt, um diese iterieren zu können
-		erkennungsmodule = Collections.emptyList();
-		module = Collections.emptyList();
+	/**
+	 * Sucht in der gegebenen Map nach dem gegebenen id.
+	 * Wenn die id nicht gefunden wird, wird ein leeres Array zurückgegeben.
+	 */
+	private String[] getOrDefault(Map<Integer, String[]> schluessel, int modulId) {
+		return Objects.requireNonNullElseGet(schluessel.get(modulId), () -> new String[0]);
 	}
-	
+
+	/**
+	 * Importiert alle Module und Erkennungsmodule
+	 */
+	public void importiereModul() throws IOException {
+		module = new ArrayList<>();
+		erkennungsmodule = new ArrayList<>();
+
+		// lade Module
+		Map<Integer, String[]> schluessel = ladeSchluessel();
+		module.add(new MoodleModul(getOrDefault(schluessel, 1)));          // Modul  1 - Moodle / Blackboard
+		module.add(new NotenModul(getOrDefault(schluessel, 2)));           // Modul  2 - Dualis / Noten
+		module.add(new GILBERTHilfeModul(getOrDefault(schluessel, 3)));    // Modul  3 - Gilbert Intro
+		module.add(new MensaplanModul(getOrDefault(schluessel, 4)));       // Modul  4 - Mensaplan
+		module.add(new VorlesungsplanModul(getOrDefault(schluessel, 5)));  // Modul  5 - Vorlesungsplan
+		module.add(new PruefOrdnungModul(getOrDefault(schluessel, 6)));    // Modul  6 - Prüfungsordnung
+		module.add(new TerminplanModul(getOrDefault(schluessel, 7)));      // Modul  7 - Terminplan
+		module.add(new ModHandbuchModul(getOrDefault(schluessel, 8)));     // Modul  8 - Modul Handbuch
+		module.add(new DokPraxisarbeitModul(getOrDefault(schluessel, 9))); // Modul  9 - Praxisarbeit
+		module.add(new DHBWFAQModul(getOrDefault(schluessel, 10)));        // Modul 10 - FAQ
+		module.add(new PhasenModul(getOrDefault(schluessel, 11)));         // Modul 11 - Theorie-/Praxisphasen
+
+		// lade Erkennungsmodule
+		erkennungsmodule.add(new Frageerkennung());
+		erkennungsmodule.add(new Datumserkennung());
+	}
+
+	/**
+	 * Bearbeitet die Anfrage:
+	 * Laesst die Erkennungsmodule die Anfrage vorbereiten, sucht ein passendes Modul
+	 * und laesst dieses die Anfrage beantworten.
+	 */
 	public void bearbeiteAnfrage(Anfrage anfrage) {
 		// rufe die Erkennungsmodule für eine allgemeine vorbereitende Untersuchung der Anfrage auf
 		rufeErkennungsModuleAuf(anfrage);
 
-		// suche das passende Modul oder benutze das Fallbackmodul, wenn kein Modul ausgewählt werden konnte
-		Modul modul = findeModul(anfrage);
-		(modul != null? modul: fallbackModul).beantworteAnfrage(anfrage);
+		// suche das passende Modul
+		findeModul(anfrage).beantworteAnfrage(anfrage);
 	}
 
-
+	/** ruft alle Erkennungsmodule mit der gegebenen Anfrage auf */
 	private void rufeErkennungsModuleAuf(Anfrage anfrage) {
 		// rufe jedes Erkennungsmodul für die gegebene Anfrage auf
 		erkennungsmodule.forEach(modul -> modul.untersucheAnfrage(anfrage));
@@ -67,33 +104,40 @@ public class Spracherkennung {
 
 	/**
 	 * findet das richtige Modul um die Anfrage zu bearbeiten
-	 * @param anfrage
 	 * @return das Modul, das am besten zur Anfrage passt
 	 */
 	private Modul findeModul(Anfrage anfrage) {
-		int[] modulCounter = new int[module.size()];
+		int maxModulCounter = 0;
+		// Anzahl der Wörter, die nur passen mit levenshtein distance <= 2
+		int maxModulCounterNichtGleich = 0;
+		List<Modul> maxModule = new LinkedList<>();
 
 		// zähle die Schluessel, von jedem Modul, die in der Anfrage auftauchen
 		String[] woerter = anfrage.getWoerter();
-		for (int modulIndex = 0; modulIndex < module.size(); modulIndex++) {
-			Modul modul = module.get(modulIndex);
+		for (Modul modul: module) {
+			int modulCounter = 0;
+			// Anzahl der Wörter, die nur passen mit levenshtein distance <= 2
+			int modulCounterNichtGleich = 0;
 
-			// nacheinander werden jetzt alle Schluessel des a#ktuellen Moduls untersucht
+			// nacheinander werden jetzt alle Schluessel des aktuellen Moduls untersucht
 			String[] modulSchluessel = modul.getSchluessel();
 			for (String schluessel : modulSchluessel) {
 				// Ein Schluessel kann aus mehreren Woertern bestehen, die durch Whitespace getrennt sind
 				// Die Wörter werden getrennt, um einfacher mit der Anfrage verglichen zu werden
-				String[] split = schluessel.split("\\s+");
+				String[] split = schluessel.toLowerCase().split("\\s+");
 
 				int anzahlWoerter = 0; // die Anzahl der Wörter des Schluessel, die schon gefunden wurden
 				for (String wort : woerter) {
-					if (wort.equals(split[anzahlWoerter])) {
+					if (sindWoerterWahrscheinlichGleich(wort, split[anzahlWoerter])) {
+						// das Modul ist nur ähnlich
+						if (!wort.equalsIgnoreCase(split[anzahlWoerter])) modulCounterNichtGleich++;
+
 						// das nächste für den Schluessel erwartete Wort wird gefunden
 						anzahlWoerter++; // es wurde ein weiteres Wort des Schluessels gefunden
 						if (anzahlWoerter == split.length) {
 							// wenn alle Wörter des Schluessels gefunden wurden
 							// erhöhe den Counter des Moduls und breche die Suche ab
-							modulCounter[modulIndex]++;
+							modulCounter++;
 							break;
 						}
 					} else {
@@ -105,33 +149,48 @@ public class Spracherkennung {
 					}
 				}
 			}
-		}
 
-		// suche das Modul mit den meisten passenden Schluesseln
-		// beachte dabei, dass es mindestens einen passenden Schluessel hat
-		int index = -1, max = 0;
-		for (int modulIndex = 0; modulIndex < modulCounter.length; modulIndex++) {
-			if (modulCounter[modulIndex] > max) {
-				index = modulIndex; max = modulCounter[modulIndex];
+			if (modulCounter > maxModulCounter) {
+				// das Modul hat mehr Treffer, als jedes andere vorherige Modul
+				maxModulCounter = modulCounter;
+				maxModulCounterNichtGleich = modulCounterNichtGleich;
+
+				maxModule.clear();
+				maxModule.add(modul);
+				// maxModul = modul;
+			} else if (modulCounter == maxModulCounter) {
+				if (modulCounterNichtGleich < maxModulCounterNichtGleich) {
+					// diese Modul passt besser als alle anderen, weil es mehr wirklich passende Schlüssel hat
+					maxModule.clear();
+					maxModule.add(modul); maxModulCounterNichtGleich = modulCounterNichtGleich;
+				} else if (modulCounterNichtGleich == maxModulCounterNichtGleich)
+					// das Modul ist nicht eindeutig, es gibt mindestens 2 Module mit maxModulCounter Treffern
+					maxModule.add(modul);
 			}
 		}
+		// es ist eindeutig
+		if (maxModule.size() == 1) return maxModule.get(0);
+		// es ist zweideutig -> lass den Benutzer auswaehlen
+		if (maxModule.size() == 2)
+			return anfrage.frageAuswahl("Was meinst du?", Map.of(
+					maxModule.get(0).getName(), maxModule.get(0),
+					maxModule.get(1).getName(), maxModule.get(1)));
 
-		if (max > 0) { // wenn es mindestens einen Treffer gab: prüfe, ob das Maximum eindeutig ist
-			// man kann ab index + 1 anfangen, da modulCounter[index] == max immer wahr sein muss
-			// und jeder Counter vorher kleiner sein musste als max
-			for (int modulIndex = index + 1; modulIndex < modulCounter.length; modulIndex++) {
-				if (modulCounter[modulIndex] == max) {
-					// markiere die Nichteindeutigkeit: Es kann kein Element ausgewählt werden
-					index = -1; break;
-				}
-			}
-		}
-
-		// gebe ein Modul mit mindestens einem Treffer zurück, wenn kein anderes Modul
-		// mindestens genauso viele Treffer hat
-		return index >= 0? module.get(index): null;
+		// es ist unverstaendlich -> fallback zum fallbackModul
+		return fallbackModul;
 	}
-	
+
+	/**
+	 * Testet, ob zwei Woerter wahrscheinlich gleich sind.
+	 * Das ist der Fall, wenn sie sich an maximal zwei Stellen unterscheiden.
+	 *
+	 * @see Util#berechneLevenshteinAbstand(String, String)
+	 */
+	private boolean sindWoerterWahrscheinlichGleich(String a, String b) {
+		// maximal zwei fehler => zwei falsche Buchstaben. z.B. auch Buchstabendreher
+		return Util.berechneLevenshteinAbstand(a, b) <= 2;
+	}
+
 	public List<Erkennungsmodul> getErkennungsmodule() {
 		return erkennungsmodule;
 	}

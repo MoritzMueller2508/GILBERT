@@ -1,13 +1,17 @@
 package de.gilbert.main.modules;
 
-import de.gilbert.main.Anfrage;
 import de.gilbert.main.Textmodul;
-import de.gilbert.main.Verweismodul;
 
+/**
+ * Textmodul: Gibt einen Hilfetext über GILBERT an den Benutzer
+ *
+ * @author Zusibell Jimenez
+ */
 public class GILBERTHilfeModul extends Textmodul {
-    private static String Anleitung = "Hallo, ich bin GILBERT.\n" +
+    /** Der zurückgegebene Hilfetext */
+    private static final String ANLEITUNG = "Hallo, ich bin GILBERT.\n" +
             "Ich bin hier um dir mit deiner Anfrage bezüglich der DHBW Mannheim zu helfen.\n" +
-            "Du findest nicht irgendwelche Information oder einen wichtigen Link? Keine Sorge, ich bin hier.\n" +
+            "Du findest irgendwelche Information oder einen wichtigen Link nicht? Keine Sorge, ich bin hier.\n" +
             "Ich besitze Informationen über folgende Themen:\n" +
             "- Moodle\n" +
             "- Dualis\n" +
@@ -21,15 +25,19 @@ public class GILBERTHilfeModul extends Textmodul {
             "Wenn du noch keine Idee hast, wie du mit mir reden kannst, hier ein paar Anfragebeispiele:\n" +
             "- Welche Vorlesungen habe ich heute?\n" +
             "- Was gibt es heute zu essen?\n" +
-            "- Wie ist die Praxisarbeit Bewertung?";
+            "- Wie sind die Leitlinien für die Praxisarbeit?";
 
-    public GILBERTHilfeModul() {
-        super(Anleitung);
+    /**
+     * Erzeugt ein neues DokPraxisarbeitModul mit den gegebenen Schluesseln.
+     * @param schluessel die Modulschluessel
+     */
+    public GILBERTHilfeModul(String[] schluessel) {
+        super(schluessel, ANLEITUNG);
     }
 
-
-    @Override
-    public void beantworteAnfrage(Anfrage anfrage) {
-
+    /** Gibt die Anleitung zur weiteren Verwendung zurück (ins Besondere nach der Anmeldung) */
+    public static String getAnleitung() {
+        return ANLEITUNG;
     }
+
 }
