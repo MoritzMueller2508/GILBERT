@@ -49,6 +49,7 @@ public class Datumserkennung extends Erkennungsmodul {
 		// Tag
 		parser.add(new StringFeldDifferenzParser("heute", Period.ofDays(0)));
 		parser.add(new StringFeldDifferenzParser("übermorgen", Period.ofDays(2)));
+		parser.add(new StringFeldDifferenzParser("uebermorgen", Period.ofDays(2)));
 		parser.add(new StringFeldDifferenzParser("morgen", Period.ofDays(1)));
 		parser.add(new StringFeldDifferenzParser("vorgestern", Period.ofDays(-2)));
 		parser.add(new StringFeldDifferenzParser("gestern", Period.ofDays(-1)));
@@ -56,7 +57,9 @@ public class Datumserkennung extends Erkennungsmodul {
 		// Woche
 		parser.add(new StringFeldDifferenzParser("diese woche", Period.ofWeeks(0)));
 		parser.add(new StringFeldDifferenzParser("übernächste woche", Period.ofWeeks(2)));
+		parser.add(new StringFeldDifferenzParser("uebernaechste woche", Period.ofWeeks(2)));
 		parser.add(new StringFeldDifferenzParser("nächste woche", Period.ofWeeks(1)));
+		parser.add(new StringFeldDifferenzParser("naechste woche", Period.ofWeeks(1)));
 		parser.add(new StringFeldDifferenzParser("vorletzte woche", Period.ofWeeks(-2)));
 		parser.add(new StringFeldDifferenzParser("letzte woche", Period.ofWeeks(-1)));
 
@@ -115,7 +118,7 @@ public class Datumserkennung extends Erkennungsmodul {
 		 */
 		@Override
 		public LocalDate getDatumsangabeInString(Anfrage anfrage) {
-			return anfrage.getAnfrage().contains(phrase)? erzeugeDatum(): null;
+			return anfrage.getAnfrage().toLowerCase().contains(phrase)? erzeugeDatum(): null;
 		}
 	}
 
